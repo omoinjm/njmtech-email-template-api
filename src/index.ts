@@ -18,8 +18,8 @@ const app: Express = express();
 const port = process.env.PORT || 3000;
 
 // Static Files
-app.use(express.static("public"));
-app.use("/css", express.static(__dirname + "public/css"));
+app.use(express.static("src/assets"));
+app.use("/css", express.static(__dirname + "src/assets/css"));
 
 // Set Templating Engine
 app.set("views", __dirname + "/views");
