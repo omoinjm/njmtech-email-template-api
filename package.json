@@ -2,11 +2,11 @@
   "name": "njmtech-email-api",
   "version": "1.0.0",
   "description": "Email Template Api",
-  "main": "server.ts",
+  "main": "index.ts",
   "scripts": {
     "build": "rimraf dist && tsc",
-    "start": "node dist/server.ts",
-    "dev": "nodemon server.ts",
+    "start": "node dist/index.js",
+    "dev": "nodemon index.ts",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
     "test": "echo \"Error: no test specified\" && exit 1"
