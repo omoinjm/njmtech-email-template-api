@@ -22,7 +22,7 @@ app.use(express.static("public"));
 app.use("/css", express.static(__dirname + "public/css"));
 
 // Set Templating Engine
-app.set("views", "./views");
+app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 
 app.get("/", (req: Request, res: Response) => {

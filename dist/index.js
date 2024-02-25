@@ -23,7 +23,7 @@ const port = process.env.PORT || 3000;
 app.use(express_1.default.static("public"));
 app.use("/css", express_1.default.static(__dirname + "public/css"));
 // Set Templating Engine
-app.set("views", "./views");
+app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 app.get("/", (req, res) => {
     res.render("pages/home", { title: "Email Template Api", showLogo: true });
@@ -41,3 +41,4 @@ app.get("/template", (req, res) => {
 app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);
 });
+//# sourceMappingURL=index.js.map
