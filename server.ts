@@ -1,4 +1,4 @@
-/// src/index.ts
+// server.ts
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 
@@ -17,10 +17,26 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT || 3000;
 
-/* Define a route for the root path ("/")
- using the HTTP GET method */
+// Static Files
+app.use(express.static("public"));
+app.use("/css", express.static(__dirname + "public/css"));
+
+// Set Templating Engine
+app.set("view engine", "ejs");
+
 app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
+  res.render("pages/home", { title: "Email Template Api", showLogo: true });
+});
+
+app.get("/template", (req: Request, res: Response) => {
+  // Extract the template name from query parameters
+  const templateName = req.query.name;
+
+  if (!templateName) {
+    return res.status(400).send("Template name not provided");
+  }
+
+  res.render(`pages/${templateName}`, { title: "Thank you", showLogo: false });
 });
 
 /* Start the Express app and listen
