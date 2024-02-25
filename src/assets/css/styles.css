@@ -1,0 +1,157 @@
+/****** IMPORTS ******/
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css");
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap");
+
+/****** COLOURS ******/
+:root {
+    --light-bg-color: #fff;
+    --light-color: #121212;
+    --dark-bg-color: #121212;
+    --dark-color: #fff;
+}
+
+/************ Custom Font ************/
+@font-face {
+    font-family: Centra;
+    src: url("https://res.cloudinary.com/dfta3fn6p/raw/upload/v1676064194/public/font/CentraNo2-Bold_au8daq.ttf");
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: Centra;
+    src: url("https://res.cloudinary.com/dfta3fn6p/raw/upload/v1676064195/public/font/CentraNo2-Medium_f8e0ma.ttf");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Centra;
+    src: url("https://res.cloudinary.com/dfta3fn6p/raw/upload/v1676064194/public/font/CentraNo2-Book_ekdisj.ttf");
+    font-weight: 400;
+}
+
+/************ Default Css ************/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 75px;
+}
+
+body {
+    font-weight: 400;
+    overflow-x: hidden;
+    position: relative;
+    background-color: #fff !important;
+    color: #fff !important;
+    font-family: "Centra", sans-serif !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+    line-height: normal;
+}
+
+p,
+a,
+li,
+button,
+ul {
+    margin: 0;
+    padding: 0;
+    line-height: normal;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+button {
+    border: 0;
+    background-color: transparent;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+}
+
+@media (min-width: 1700px) {
+    main .container {
+        max-width: 100%;
+        padding: 0 150px;
+    }
+}
+/************ Logo Css ************/
+.logo-name {
+    color: #fff;
+    font-family: "Nunito Sans", sans-serif;
+    letter-spacing: 5px;
+    margin-left: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.logo-name span {
+    color: rgba(170, 54, 124, 0.5);
+}
+
+
+/************ Footer Css ************/
+.footer {
+    background-color: red !important;
+    padding: 0 0 50px 0;
+    background-image: url("https://res.cloudinary.com/dfta3fn6p/image/upload/v1676064207/public/images/img/footer-bg_dfzbqn.png");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.footer img {
+    width: 26%;
+}
+
+.footer .social-icon {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+}
+
+.footer p {
+    font-weight: 400;
+    font-size: 14px;
+    color: #b8b8b8;
+    letter-spacing: 0.5px;
+    margin-top: 20px;
+}
+
+@media (max-width: 575px) {
+    .footer .social-icon {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    footer .logo-name {
+        display: none;
+    }
+}

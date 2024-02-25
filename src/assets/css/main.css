@@ -1,0 +1,134 @@
+/* TAGS */
+
+body {
+  background-image: url(/images/bg-desktop.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #161226;
+  color: #fff;
+  font-family: "Open Sans", sans-serif;
+  margin: 5vh 5vw;
+}
+
+h1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+p {
+  font-weight: 400;
+}
+
+a {
+  text-decoration: none;
+}
+
+footer {
+  display: flex;
+  align-items: end;
+  justify-content: flex-end;
+  margin: 5vh 0;
+}
+
+/* CONTAINERS & CLASSES */
+
+.img-logo {
+  margin-bottom: 5%;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5%;
+}
+
+.button-register {
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+  border-radius: 2rem;
+  box-shadow:
+    0 8px 16px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: hsl(257, 40%, 49%);
+  margin-top: 1rem;
+  padding: 3% 7%;
+  font-size: 100%;
+}
+
+.button-register:hover {
+  background-color: hsl(300, 69%, 71%);
+  color: #fff;
+}
+
+.social-icon {
+  display: inline-block;
+  margin-left: 14px;
+}
+
+.social-icon a {
+  width: 42px;
+  height: 42px;
+  background: rgba(217, 217, 217, 0.1);
+  display: inline-flex;
+  border-radius: 50%;
+  margin-right: 6px;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.social-icon a::before {
+  content: "";
+  width: 42px;
+  height: 42px;
+  position: absolute;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 0.3s ease-in-out;
+}
+
+.social-icon a:hover::before {
+  transform: scale(1);
+}
+
+.social-icon a img {
+  width: 40%;
+  z-index: 1;
+  transition: 0.3s ease-in-out;
+}
+
+.social-icon a:hover img {
+  filter: brightness(0) saturate(100%) invert(0%) sepia(7%) saturate(98%)
+    hue-rotate(346deg) brightness(95%) contrast(86%);
+}
+
+@media (max-width: 1200px) {
+  body {
+    background-image: url(/images/bg-mobile.svg);
+    background-size: cover;
+  }
+
+  .img-mockups {
+    width: 85vw;
+  }
+
+  .container {
+    flex-direction: column;
+  }
+
+  .button-register {
+    width: 100%;
+    padding: 2% 5%;
+  }
+
+  footer {
+    align-items: center;
+    justify-content: center;
+  }
+}
+
