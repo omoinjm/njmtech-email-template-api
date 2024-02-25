@@ -20,8 +20,8 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
 // Static Files
-app.use(express_1.default.static("src/assets"));
-app.use("/css", express_1.default.static(__dirname + "src/assets/css"));
+app.use(express_1.default.static("public"));
+app.use("/css", express_1.default.static(__dirname + "public/css"));
 // Set Templating Engine
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
