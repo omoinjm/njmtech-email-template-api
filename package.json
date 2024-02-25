@@ -4,8 +4,8 @@
   "description": "Email Template Api",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc && cp -r src/views dist",
-    "build-vercel": "npx tsc && cp -r src/views /var/task/dist && cp public /var/task/dist",
+    "build": "npx tsc && cp -r src/views/ dist/ && cp -r src/assets/ dist/",
+    "build-vercel": "npx tsc && cp -r src/views/ /var/task/dist/ && cp -r src/assets/ /var/task/dist/",
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts",
     "ts.check": "tsc --project tsconfig.json",
