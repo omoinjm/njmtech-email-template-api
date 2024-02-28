@@ -26,7 +26,11 @@ app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 
 app.get("/", (req: Request, res: Response) => {
-  res.render("pages/home", { title: "Email Template Api", showLogo: true });
+  res.render("pages/home", {
+    title: "Email Template Api",
+    showLogo: true,
+    style: process.env.PUBLIC_CSS_CDN,
+  });
 });
 
 app.get("/template", (req: Request, res: Response) => {
@@ -37,7 +41,11 @@ app.get("/template", (req: Request, res: Response) => {
     return res.status(400).send("Template name not provided");
   }
 
-  res.render(`pages/${templateName}`, { title: "Thank you", showLogo: false });
+  res.render(`pages/${templateName}`, {
+    title: "Thank you",
+    showLogo: false,
+    style: process.env.PUBLIC_CSS_CDN,
+  });
 });
 
 /* Start the Express app and listen
