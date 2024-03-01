@@ -29,7 +29,6 @@ app.get("/", (req: Request, res: Response) => {
   res.render("pages/home", {
     title: "Email Template Api",
     showLogo: true,
-    uri: process.env.PUBLIC_ASSET_CDN,
   });
 });
 
@@ -44,7 +43,6 @@ app.get("/template", (req: Request, res: Response) => {
   res.render(`pages/${templateName}`, {
     title: "Thank you",
     showLogo: false,
-    uri: process.env.PUBLIC_ASSET_CDN,
   });
 });
 
