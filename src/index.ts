@@ -28,26 +28,29 @@ app.set("view engine", "ejs");
 app.get("/", (req: Request, res: Response) => {
   res.render("pages/home", {
     title: "Email Template Api",
-    showLogo: true,
+    isHome: true,
   });
 });
 
 app.get("/template", (req: Request, res: Response) => {
-  // Extract the template name from query parameters
-  const templateName = req.query.name;
+  // Extract the template name fom query parameters
+  const { name, first_name } = req.query;
 
-  if (!templateName) {
-    return res.status(400).send("Template name not provided");
+  const requiredParams = ["name", "first_name"];
+  const missingParams = requiredParams.filter((param) => !req.query[param]);
+
+  if (missingParams.length > 0) {
+    return res.status(400).json({ error: "Missing parameters", missingParams });
   }
 
-  res.render(`pages/${templateName}`, {
+  res.render(`pages/${name}`, {
     title: "Thank you",
-    showLogo: false,
+    isHome: false,
+    displayName: first_name,
   });
 });
 
-/* Start the Express app and listen
- for incoming requests on the specified port */
+/* Start the Express app and listen for incoming requests on the specified port */
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });

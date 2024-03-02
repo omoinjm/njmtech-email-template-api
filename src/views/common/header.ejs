@@ -1,7 +1,9 @@
-<body backgrpund="https://res.cloudinary.com/dfta3fn6p/image/upload/v1709227715/public/images/img/png/bg-desktop_tw0nyx.png">
+<% if (isHome) { %>
+  <body>
     <header>
-      <% if (showLogo) { %>
-        <img class="img-logo" src="https://res.cloudinary.com/dfta3fn6p/image/upload/v1709227717/public/images/img/png/logo_ypnfr5.png" alt="Logo Image" />
-      <% } %>
+        <img class="img-logo" src="https://res.cloudinary.com/dfta3fn6p/image/upload/v1676064213/public/logo/NJMTECH_ej4qzi.png" alt="Logo Image" />
     </header>
+<% } else { %>
+  <body style="outline: 0; width: 100%; min-width: 100%; height: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: Helvetica, Arial, sans-serif; line-height: 24px; font-weight: normal; font-size: 16px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; color: #000000; margin: 0; padding: 0; border-width: 0;">
+<% } %>
 
