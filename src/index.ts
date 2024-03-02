@@ -34,16 +34,16 @@ app.get("/", (req: Request, res: Response) => {
 
 app.get("/template", (req: Request, res: Response) => {
   // Extract the template name fom query parameters
-  const { name, first_name } = req.query;
+  const { template_name, first_name, last_name } = req.query;
 
-  const requiredParams = ["name", "first_name"];
+  const requiredParams = ["template_name", "first_name", "last_name"];
   const missingParams = requiredParams.filter((param) => !req.query[param]);
 
   if (missingParams.length > 0) {
     return res.status(400).json({ error: "Missing parameters", missingParams });
   }
 
-  res.render(`pages/${name}`, {
+  res.render(`pages/${template_name}`, {
     title: "Thank you",
     isHome: false,
     displayName: first_name,
