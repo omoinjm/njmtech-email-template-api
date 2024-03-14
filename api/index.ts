@@ -18,10 +18,6 @@ const api: Express = express();
 const router = Router();
 const port = process.env.PORT || 3000;
 
-// Static Files
-api.use(express.static(__dirname + "/public"));
-api.use("/css", express.static(__dirname + "public/css"));
-
 // Set Templating Engine
 api.set("views", __dirname + "/views");
 api.set("view engine", "ejs");
