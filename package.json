@@ -2,12 +2,12 @@
   "name": "njmtech-email-api",
   "version": "1.0.0",
   "description": "Email Template Api",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "build": "npx tsc && cp -r src/views/ dist/",
-    "build-vercel": "npx tsc && cp -r src/views/ /var/task/dist/",
+    "build": "npx tsc && cp -r api/views/ dist/",
+    "build-vercel": "npx tsc && cp -r api/views/ /var/task/dist/",
     "start": "node dist/index.js",
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon api/index.ts",
     "ts.check": "tsc --project tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,9 +17,11 @@
     "body-parser": "^1.20.2",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.9",
-    "express": "^4.18.2"
+    "express": "^4.18.3",
+    "serverless-http": "^3.2.0"
   },
   "devDependencies": {
+    "@netlify/functions": "github:netlify/functions",
     "@types/ejs": "^3.1.5",
     "@types/express": "^4.17.21",
     "@types/node": "^20.11.20",
