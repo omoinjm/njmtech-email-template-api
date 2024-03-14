@@ -1,13 +1,3 @@
-//const express = require("express");
-//
-//const app = express();
-//
-//app.get("/", (req, res) => res.send("Express on Vercel"));
-//
-//app.listen(3000, () => console.log("Server ready on port 3000."));
-//
-//module.exports = app;
-
 // server.ts
 import express, { Router, Express, Request, Response } from "express";
 import dotenv from "dotenv";
@@ -29,8 +19,8 @@ const router = Router();
 const port = process.env.PORT || 3000;
 
 // Static Files
-api.use(express.static(__dirname + "/assets"));
-api.use("/css", express.static(__dirname + "assets/css"));
+api.use(express.static(__dirname + "/public"));
+api.use("/css", express.static(__dirname + "public/css"));
 
 // Set Templating Engine
 api.set("views", __dirname + "/views");
