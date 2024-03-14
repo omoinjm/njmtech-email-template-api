@@ -1,5 +1,5 @@
 // server.ts
-import express, { Express, Request, Response } from "express";
+import express, { Router, Express, Request, Response } from "express";
 import dotenv from "dotenv";
 
 /*
@@ -14,27 +14,28 @@ dotenv.config();
  * value of the PORT environment variable
  * from the `process.env`
  */
-const app: Express = express();
+const api: Express = express();
+const router = Router();
 const port = process.env.PORT || 3000;
 
 // Static Files
-app.use(express.static(__dirname + "/assets"));
-app.use("/css", express.static(__dirname + "assets/css"));
+api.use(express.static(__dirname + "/assets"));
+api.use("/css", express.static(__dirname + "assets/css"));
 
 // Set Templating Engine
-app.set("views", __dirname + "/views");
-app.set("view engine", "ejs");
+api.set("views", __dirname + "/views");
+api.set("view engine", "ejs");
 
-app.get("/", (req: Request, res: Response) => {
+router.get("/", (req: Request, res: Response) => {
   res.render("pages/home", {
     title: "Email Template Api",
     isHome: true,
   });
 });
 
-app.get("/template", (req: Request, res: Response) => {
+router.get("/template", (req: Request, res: Response) => {
   // Extract the template name fom query parameters
-  const { template_name, first_name, last_name } = req.query;
+  const { template_name, first_name } = req.query;
 
   const requiredParams = ["template_name", "first_name", "last_name"];
   const missingParams = requiredParams.filter((param) => !req.query[param]);
@@ -50,7 +51,9 @@ app.get("/template", (req: Request, res: Response) => {
   });
 });
 
+api.use("/api/", router);
+
 /* Start the Express app and listen for incoming requests on the specified port */
-app.listen(port, () => {
+api.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
