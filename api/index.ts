@@ -47,6 +47,11 @@ router.get("/template", (req: Request, res: Response) => {
   });
 });
 
+// Redirect requests to '/' to '/api/'
+api.get("/", (req, res) => {
+  res.redirect("/api/");
+});
+
 api.use("/api/", router);
 
 /* Start the Express app and listen for incoming requests on the specified port */
