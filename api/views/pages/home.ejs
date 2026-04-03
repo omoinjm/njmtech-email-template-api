@@ -1,28 +1,500 @@
-<%- include('../common/head.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NJMTech Email Template API — render and send transactional email templates." />
+  <title><%= title %></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<%- include('../common/header.ejs') %>
+    html, body {
+      height: 100%;
+      font-family: "Inter", Arial, sans-serif;
+      color: #1e1b4b;
+      overflow: hidden;
+    }
 
-<main class="container">
-  <div class="box">
-    <img class="img-mockups" src="https://res.cloudinary.com/dfta3fn6p/image/upload/v1709227716/public/images/img/png/illustration-mockups_ftpufr.png" alt="Hero Image" />
+    .page {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: #1e1b4b;
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .logo-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-badge {
+      background: #4f46e5;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 4px 9px;
+      border-radius: 6px;
+    }
+
+    .logo-name {
+      color: #e0e7ff;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .header-link {
+      color: #a5b4fc;
+      font-size: 12px;
+      text-decoration: none;
+      border: 1px solid #4f46e5;
+      border-radius: 6px;
+      padding: 5px 12px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .header-link:hover { background: #4f46e5; color: #fff; }
+
+    /* ── Body split ── */
+    .split {
+      flex: 1;
+      display: flex;
+      min-height: 0;
+    }
+
+    /* ── Left: hero ── */
+    .hero {
+      flex: 0 0 45%;
+      background: linear-gradient(160deg, #1e1b4b 0%, #312e81 55%, #4338ca 100%);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px 48px;
+    }
+
+    .hero-chip {
+      display: inline-block;
+      background: rgba(99,102,241,0.3);
+      border: 1px solid #6366f1;
+      color: #c7d2fe;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 12px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+      width: fit-content;
+    }
+
+    .hero h1 {
+      font-size: clamp(22px, 3vw, 34px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 span { color: #a5b4fc; }
+
+    .hero p {
+      color: #c7d2fe;
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 28px;
+      max-width: 380px;
+    }
+
+    .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: #4f46e5;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 7px;
+      text-decoration: none;
+      border: 2px solid #4f46e5;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: #4338ca; border-color: #4338ca; }
+
+    .btn-outline {
+      background: transparent;
+      color: #e0e7ff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 7px;
+      text-decoration: none;
+      border: 2px solid rgba(165,180,252,0.4);
+      transition: border-color 0.2s;
+    }
+
+    .btn-outline:hover { border-color: #a5b4fc; }
+
+    /* ── Right: reference panel ── */
+    .reference {
+      flex: 1;
+      background: #f8f7ff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px 48px;
+      border-left: 1px solid #e0e7ff;
+      overflow-y: auto;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #6366f1;
+      margin-bottom: 10px;
+    }
+
+    /* ── Endpoint rows ── */
+    .endpoint-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+
+    .endpoint-card {
+      background: #fff;
+      border: 1px solid #e0e7ff;
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .method-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .method-get  { background: #ecfdf5; color: #059669; border: 1px solid #6ee7b7; }
+    .method-post { background: #eff6ff; color: #2563eb; border: 1px solid #93c5fd; }
+
+    .endpoint-path {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1e1b4b;
+      font-family: "Courier New", Courier, monospace;
+      margin-bottom: 2px;
+    }
+
+    .endpoint-desc { font-size: 12px; color: #6b7280; line-height: 1.4; }
+
+    /* ── Template chips ── */
+    .template-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .template-chip {
+      background: #fff;
+      border: 1px solid #e0e7ff;
+      border-left: 3px solid #4f46e5;
+      border-radius: 6px;
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: background 0.15s, box-shadow 0.15s;
+      user-select: none;
+    }
+
+    .template-chip:hover {
+      background: #ede9fe;
+      box-shadow: 0 2px 8px rgba(79,70,229,0.12);
+    }
+
+    .chip-name { font-size: 12px; font-weight: 600; color: #1e1b4b; margin-bottom: 1px; }
+    .chip-key  { font-size: 10px; color: #6366f1; font-family: "Courier New", Courier, monospace; }
+
+    .chip-hint {
+      font-size: 10px;
+      color: #a5b4fc;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .chip-hint svg { width: 10px; height: 10px; fill: currentColor; }
+
+    /* ── Modal ── */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(17,14,46,0.7);
+      backdrop-filter: blur(3px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 700px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+    }
+
+    .modal-header {
+      background: #1e1b4b;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .modal-title { color: #e0e7ff; font-size: 13px; font-weight: 600; }
+    .modal-title span { color: #a5b4fc; font-weight: 400; margin-left: 6px; font-family: "Courier New", Courier, monospace; font-size: 12px; }
+
+    .modal-actions { display: flex; align-items: center; gap: 10px; }
+
+    .modal-newtab {
+      color: #a5b4fc;
+      font-size: 12px;
+      text-decoration: none;
+      border: 1px solid rgba(165,180,252,0.4);
+      border-radius: 5px;
+      padding: 4px 10px;
+      transition: background 0.15s;
+    }
+
+    .modal-newtab:hover { background: rgba(99,102,241,0.2); }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: #a5b4fc;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .modal-close:hover { color: #fff; background: rgba(255,255,255,0.1); }
+    .modal-close svg { width: 16px; height: 16px; fill: currentColor; }
+
+    .modal-body { flex: 1; overflow: hidden; min-height: 0; }
+    .modal-body iframe { width: 100%; height: 100%; min-height: 520px; border: none; display: block; }
+
+    /* ── Footer ── */
+    footer {
+      background: #1e1b4b;
+      color: #a5b4fc;
+      text-align: center;
+      padding: 12px 32px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .footer-socials { display: flex; gap: 10px; }
+    .footer-socials a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid rgba(165,180,252,0.3);
+      color: #a5b4fc;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .footer-socials a:hover { background: #4f46e5; border-color: #4f46e5; color: #fff; }
+    .footer-socials svg { width: 13px; height: 13px; fill: currentColor; }
+
+    .footer-copy { color: #a5b4fc; }
+    .footer-copy a { color: #a5b4fc; text-decoration: none; }
+    .footer-copy a:hover { color: #e0e7ff; }
+
+    @media (max-width: 768px) {
+      html, body { overflow: auto; }
+      .split { flex-direction: column; }
+      .hero { flex: none; padding: 36px 24px; }
+      .reference { padding: 32px 24px; }
+      footer { flex-direction: column; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <a class="logo-mark" href="/">
+      <span class="logo-badge">NJM</span>
+      <span class="logo-name">Email Template API</span>
+    </a>
+    <a class="header-link" href="https://njmtech.co.za/" target="_blank" rel="noopener">njmtech.co.za ↗</a>
+  </header>
+
+  <div class="split">
+
+    <section class="hero">
+      <span class="hero-chip">v1.0</span>
+      <h1>Transactional emails,<br /><span>done right</span></h1>
+      <p>
+        A lightweight API for rendering and delivering beautifully designed,
+        email-client-safe HTML templates — built for NJMTech projects.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-outline" href="https://njmtech.co.za/" target="_blank" rel="noopener">Official Website</a>
+      </div>
+    </section>
+
+    <div class="reference">
+
+      <p class="section-label">API Reference</p>
+      <div class="endpoint-list" style="margin-top:10px;">
+        <div class="endpoint-card">
+          <span class="method-badge method-get">GET</span>
+          <div>
+            <p class="endpoint-path">/</p>
+            <p class="endpoint-desc">Health check — returns this page confirming the service is up.</p>
+          </div>
+        </div>
+        <div class="endpoint-card">
+          <span class="method-badge method-get">GET</span>
+          <div>
+            <p class="endpoint-path">/preview/:template</p>
+            <p class="endpoint-desc">Render a template with sample data for visual inspection.</p>
+          </div>
+        </div>
+        <div class="endpoint-card">
+          <span class="method-badge method-post">POST</span>
+          <div>
+            <p class="endpoint-path">/template</p>
+            <p class="endpoint-desc">Render a template as HTML. Body: <code>template_name</code>, <code>first_name</code>, <code>last_name</code> + template vars.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-label">Available Templates</p>
+      <div class="template-chips" style="margin-top:10px;">
+        <div class="template-chip" data-template="contact_notification" data-label="Contact Notification">
+          <p class="chip-name">Contact Notification</p>
+          <p class="chip-key">contact_notification</p>
+          <p class="chip-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg> Preview</p>
+        </div>
+        <div class="template-chip" data-template="contact_confirmation" data-label="Contact Confirmation">
+          <p class="chip-name">Contact Confirmation</p>
+          <p class="chip-key">contact_confirmation</p>
+          <p class="chip-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg> Preview</p>
+        </div>
+        <div class="template-chip" data-template="subscribe_welcome" data-label="Subscribe Welcome">
+          <p class="chip-name">Subscribe Welcome</p>
+          <p class="chip-key">subscribe_welcome</p>
+          <p class="chip-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg> Preview</p>
+        </div>
+        <div class="template-chip" data-template="thank_you" data-label="Thank You">
+          <p class="chip-name">Thank You</p>
+          <p class="chip-key">thank_you</p>
+          <p class="chip-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg> Preview</p>
+        </div>
+      </div>
+
+    </div>
   </div>
-  <div class="box">
-    <h1>Welcome to my Email Template API</h1>
-            <p>
-                This service provides a comprehensive solution for sending emails effortlessly to recipients at any
-                given time. With its versatile functionality, it allows for the automation of various responses such as
-                auto-replies and thank-you messages. Additionally, it streamlines communication processes by offering
-                customizable templates and scheduling options. Users can easily tailor their messages and ensure timely
-                delivery to meet their specific needs. Overall, this service enhances efficiency and effectiveness in
-                email correspondence for various purposes.
-            </p>
-            <a href="https://njmtech.vercel.app/" target="_blank">
-                <button class="button-register">
-                    Official website
-                </button>
-            </a>
+
+  <!-- Preview modal -->
+  <div class="modal-backdrop" id="modal-backdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-header">
+        <p class="modal-title" id="modal-title">Preview <span id="modal-template-label"></span></p>
+        <div class="modal-actions">
+          <a class="modal-newtab" id="modal-newtab" href="#" target="_blank" rel="noopener">Open in new tab ↗</a>
+          <button class="modal-close" id="modal-close" aria-label="Close">
+            <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <iframe id="modal-iframe" title="Template preview"></iframe>
+      </div>
+    </div>
   </div>
-</main>
 
-<%- include('../common/footer.ejs') %>
+  <script>
+    const backdrop = document.getElementById('modal-backdrop');
+    const iframe   = document.getElementById('modal-iframe');
+    const newtab   = document.getElementById('modal-newtab');
+    const label    = document.getElementById('modal-template-label');
 
+    function openModal(template, displayLabel) {
+      const url = '/preview/' + template;
+      iframe.src = url;
+      newtab.href = url;
+      label.textContent = displayLabel;
+      backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      backdrop.classList.remove('open');
+      iframe.src = '';
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.template-chip[data-template]').forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        openModal(chip.dataset.template, chip.dataset.label);
+      });
+    });
+
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+    backdrop.addEventListener('click', function(e) { if (e.target === backdrop) closeModal(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+  </script>
+
+  <footer>
+    <div class="footer-socials">
+      <a href="https://www.linkedin.com/in/njmalaza" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://twitter.com/nhlanhlamalaza_" target="_blank" rel="noopener noreferrer" aria-label="Twitter / X">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+      </a>
+      <a href="https://github.com/omoinjm" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+    </div>
+    <p class="footer-copy">&copy; <%= new Date().getFullYear() %> NJMTech · <a href="https://njmtech.co.za/" target="_blank" rel="noopener">Nhlanhla Malaza</a></p>
+  </footer>
+
+</div>
+</body>
+</html>
