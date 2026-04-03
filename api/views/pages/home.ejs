@@ -1,28 +1,339 @@
-<%- include('../common/head.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NJMTech Email Template API — render and send transactional email templates." />
+  <title><%= title %></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<%- include('../common/header.ejs') %>
+    body {
+      font-family: "Inter", Arial, sans-serif;
+      background: #f8f7ff;
+      color: #1e1b4b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-<main class="container">
-  <div class="box">
-    <img class="img-mockups" src="https://res.cloudinary.com/dfta3fn6p/image/upload/v1709227716/public/images/img/png/illustration-mockups_ftpufr.png" alt="Hero Image" />
-  </div>
-  <div class="box">
-    <h1>Welcome to my Email Template API</h1>
-            <p>
-                This service provides a comprehensive solution for sending emails effortlessly to recipients at any
-                given time. With its versatile functionality, it allows for the automation of various responses such as
-                auto-replies and thank-you messages. Additionally, it streamlines communication processes by offering
-                customizable templates and scheduling options. Users can easily tailor their messages and ensure timely
-                delivery to meet their specific needs. Overall, this service enhances efficiency and effectiveness in
-                email correspondence for various purposes.
+    /* ── Header ── */
+    header {
+      background: #1e1b4b;
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-badge {
+      background: #4f46e5;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 5px 10px;
+      border-radius: 6px;
+    }
+
+    .logo-name {
+      color: #e0e7ff;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .header-link {
+      color: #a5b4fc;
+      font-size: 13px;
+      text-decoration: none;
+      border: 1px solid #4f46e5;
+      border-radius: 6px;
+      padding: 6px 14px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .header-link:hover { background: #4f46e5; color: #fff; }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #4338ca 100%);
+      color: #fff;
+      padding: 72px 32px 80px;
+      text-align: center;
+    }
+
+    .hero-chip {
+      display: inline-block;
+      background: rgba(99, 102, 241, 0.3);
+      border: 1px solid #6366f1;
+      color: #c7d2fe;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(26px, 5vw, 42px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 span { color: #a5b4fc; }
+
+    .hero p {
+      max-width: 580px;
+      margin: 0 auto 32px;
+      color: #c7d2fe;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: #4f46e5;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 2px solid #4f46e5;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: #4338ca; border-color: #4338ca; }
+
+    .btn-outline {
+      background: transparent;
+      color: #e0e7ff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: 2px solid rgba(165, 180, 252, 0.4);
+      transition: border-color 0.2s;
+    }
+
+    .btn-outline:hover { border-color: #a5b4fc; }
+
+    /* ── Main content ── */
+    main { flex: 1; padding: 56px 32px; max-width: 880px; margin: 0 auto; width: 100%; }
+
+    /* ── Section headings ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #6366f1;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1e1b4b;
+      margin-bottom: 28px;
+    }
+
+    /* ── Endpoint cards ── */
+    .endpoint-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 56px; }
+
+    .endpoint-card {
+      background: #fff;
+      border: 1px solid #e0e7ff;
+      border-radius: 10px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .method-badge {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 3px 9px;
+      border-radius: 5px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .method-get { background: #ecfdf5; color: #059669; border: 1px solid #6ee7b7; }
+    .method-post { background: #eff6ff; color: #2563eb; border: 1px solid #93c5fd; }
+
+    .endpoint-path {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e1b4b;
+      font-family: "Courier New", Courier, monospace;
+      margin-bottom: 4px;
+    }
+
+    .endpoint-desc {
+      font-size: 13px;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    /* ── Templates grid ── */
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 56px;
+    }
+
+    .template-card {
+      background: #fff;
+      border: 1px solid #e0e7ff;
+      border-radius: 10px;
+      padding: 18px 20px;
+      position: relative;
+    }
+
+    .template-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: #4f46e5;
+      border-radius: 10px 0 0 10px;
+    }
+
+    .template-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1e1b4b;
+      margin-bottom: 4px;
+    }
+
+    .template-key {
+      font-size: 11px;
+      color: #6366f1;
+      font-family: "Courier New", Courier, monospace;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: #1e1b4b;
+      color: #a5b4fc;
+      text-align: center;
+      padding: 24px 32px;
+      font-size: 13px;
+    }
+
+    footer a { color: #a5b4fc; text-decoration: none; }
+    footer a:hover { color: #e0e7ff; }
+    .footer-socials { display: flex; justify-content: center; gap: 20px; margin-bottom: 10px; }
+
+    @media (max-width: 600px) {
+      .hero { padding: 48px 20px 56px; }
+      main { padding: 40px 20px; }
+      .endpoint-card { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a class="logo-mark" href="/">
+      <span class="logo-badge">NJM</span>
+      <span class="logo-name">Email Template API</span>
+    </a>
+    <a class="header-link" href="https://njmtech.vercel.app/" target="_blank" rel="noopener">njmtech.vercel.app ↗</a>
+  </header>
+
+  <section class="hero">
+    <span class="hero-chip">v1.0</span>
+    <h1>Transactional emails,<br /><span>done right</span></h1>
+    <p>
+      A lightweight API for rendering and delivering beautifully designed,
+      email-client-safe HTML templates — built for NJMTech projects.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#endpoints">View Endpoints</a>
+      <a class="btn-outline" href="https://njmtech.vercel.app/" target="_blank" rel="noopener">Official Website</a>
+    </div>
+  </section>
+
+  <main>
+
+    <div id="endpoints">
+      <p class="section-label">API Reference</p>
+      <p class="section-title">Endpoints</p>
+      <div class="endpoint-list">
+        <div class="endpoint-card">
+          <span class="method-badge method-get">GET</span>
+          <div>
+            <p class="endpoint-path">/</p>
+            <p class="endpoint-desc">Health check — returns this landing page confirming the service is running.</p>
+          </div>
+        </div>
+        <div class="endpoint-card">
+          <span class="method-badge method-post">POST</span>
+          <div>
+            <p class="endpoint-path">/template</p>
+            <p class="endpoint-desc">
+              Render an email template as HTML. Pass <code>template_name</code>, <code>first_name</code>,
+              <code>last_name</code>, and any template-specific variables in the JSON body.
             </p>
-            <a href="https://njmtech.vercel.app/" target="_blank">
-                <button class="button-register">
-                    Official website
-                </button>
-            </a>
-  </div>
-</main>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<%- include('../common/footer.ejs') %>
+    <div>
+      <p class="section-label">Templates</p>
+      <p class="section-title">Available Templates</p>
+      <div class="template-grid">
+        <div class="template-card">
+          <p class="template-name">Contact Notification</p>
+          <p class="template-key">contact_notification</p>
+        </div>
+        <div class="template-card">
+          <p class="template-name">Contact Confirmation</p>
+          <p class="template-key">contact_confirmation</p>
+        </div>
+        <div class="template-card">
+          <p class="template-name">Subscribe Welcome</p>
+          <p class="template-key">subscribe_welcome</p>
+        </div>
+        <div class="template-card">
+          <p class="template-name">Thank You</p>
+          <p class="template-key">thank_you</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-socials">
+      <a href="https://www.linkedin.com/in/njmalaza" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://www.instagram.com/nhlanhlamalaza_" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="https://github.com/omoinjm" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </div>
+    <p>&copy; <%= new Date().getFullYear() %> NJMTech · Built by <a href="https://njmtech.vercel.app/" target="_blank" rel="noopener">Nhlanhla Malaza</a></p>
+  </footer>
+
+</body>
+</html>
 
