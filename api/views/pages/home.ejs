@@ -215,10 +215,100 @@
       border-left: 3px solid #4f46e5;
       border-radius: 6px;
       padding: 8px 14px;
+      cursor: pointer;
+      transition: background 0.15s, box-shadow 0.15s;
+      user-select: none;
+    }
+
+    .template-chip:hover {
+      background: #ede9fe;
+      box-shadow: 0 2px 8px rgba(79,70,229,0.12);
     }
 
     .chip-name { font-size: 12px; font-weight: 600; color: #1e1b4b; margin-bottom: 1px; }
     .chip-key  { font-size: 10px; color: #6366f1; font-family: "Courier New", Courier, monospace; }
+
+    .chip-hint {
+      font-size: 10px;
+      color: #a5b4fc;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .chip-hint svg { width: 10px; height: 10px; fill: currentColor; }
+
+    /* ── Modal ── */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(17,14,46,0.7);
+      backdrop-filter: blur(3px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 700px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+    }
+
+    .modal-header {
+      background: #1e1b4b;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .modal-title { color: #e0e7ff; font-size: 13px; font-weight: 600; }
+    .modal-title span { color: #a5b4fc; font-weight: 400; margin-left: 6px; font-family: "Courier New", Courier, monospace; font-size: 12px; }
+
+    .modal-actions { display: flex; align-items: center; gap: 10px; }
+
+    .modal-newtab {
+      color: #a5b4fc;
+      font-size: 12px;
+      text-decoration: none;
+      border: 1px solid rgba(165,180,252,0.4);
+      border-radius: 5px;
+      padding: 4px 10px;
+      transition: background 0.15s;
+    }
+
+    .modal-newtab:hover { background: rgba(99,102,241,0.2); }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: #a5b4fc;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .modal-close:hover { color: #fff; background: rgba(255,255,255,0.1); }
+    .modal-close svg { width: 16px; height: 16px; fill: currentColor; }
+
+    .modal-body { flex: 1; overflow: hidden; min-height: 0; }
+    .modal-body iframe { width: 100%; height: 100%; min-height: 520px; border: none; display: block; }
 
     /* ── Footer ── */
     footer {
@@ -282,7 +372,7 @@
         email-client-safe HTML templates — built for NJMTech projects.
       </p>
       <div class="hero-actions">
-        <a class="btn-primary" href="/preview">Preview Templates</a>
+        <button class="btn-primary" onclick="openModal('contact_notification','Contact Notification')">Preview Templates</button>
         <a class="btn-outline" href="https://njmtech.co.za/" target="_blank" rel="noopener">Official Website</a>
       </div>
     </section>
@@ -316,26 +406,80 @@
 
       <p class="section-label">Available Templates</p>
       <div class="template-chips" style="margin-top:10px;">
-        <div class="template-chip">
+        <div class="template-chip" data-template="contact_notification" data-label="Contact Notification">
           <p class="chip-name">Contact Notification</p>
           <p class="chip-key">contact_notification</p>
+          <p class="chip-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg> Preview</p>
         </div>
-        <div class="template-chip">
+        <div class="template-chip" data-template="contact_confirmation" data-label="Contact Confirmation">
           <p class="chip-name">Contact Confirmation</p>
           <p class="chip-key">contact_confirmation</p>
+          <p class="chip-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg> Preview</p>
         </div>
-        <div class="template-chip">
+        <div class="template-chip" data-template="subscribe_welcome" data-label="Subscribe Welcome">
           <p class="chip-name">Subscribe Welcome</p>
           <p class="chip-key">subscribe_welcome</p>
+          <p class="chip-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg> Preview</p>
         </div>
-        <div class="template-chip">
+        <div class="template-chip" data-template="thank_you" data-label="Thank You">
           <p class="chip-name">Thank You</p>
           <p class="chip-key">thank_you</p>
+          <p class="chip-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg> Preview</p>
         </div>
       </div>
 
     </div>
   </div>
+
+  <!-- Preview modal -->
+  <div class="modal-backdrop" id="modal-backdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-header">
+        <p class="modal-title" id="modal-title">Preview <span id="modal-template-label"></span></p>
+        <div class="modal-actions">
+          <a class="modal-newtab" id="modal-newtab" href="#" target="_blank" rel="noopener">Open in new tab ↗</a>
+          <button class="modal-close" id="modal-close" aria-label="Close">
+            <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <iframe id="modal-iframe" title="Template preview"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const backdrop = document.getElementById('modal-backdrop');
+    const iframe   = document.getElementById('modal-iframe');
+    const newtab   = document.getElementById('modal-newtab');
+    const label    = document.getElementById('modal-template-label');
+
+    function openModal(template, displayLabel) {
+      const url = '/preview/' + template;
+      iframe.src = url;
+      newtab.href = url;
+      label.textContent = displayLabel;
+      backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      backdrop.classList.remove('open');
+      iframe.src = '';
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.template-chip[data-template]').forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        openModal(chip.dataset.template, chip.dataset.label);
+      });
+    });
+
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+    backdrop.addEventListener('click', function(e) { if (e.target === backdrop) closeModal(); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+  </script>
 
   <footer>
     <div class="footer-socials">
