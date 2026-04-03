@@ -1,124 +1,100 @@
-<%- include('../common/head.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>Thanks for reaching out!</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" type="text/css"/>
+  <!--[if mso]>
+  <style type="text/css">body,table,td,a{font-family:Arial,Helvetica,sans-serif!important;}</style>
+  <![endif]-->
+</head>
+<body style="margin:0;padding:0;background-color:#f4f4f8;">
+  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#f4f4f8;">
+    <tr>
+      <td align="center" style="padding:40px 16px;">
+        <!-- Card -->
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" style="max-width:600px;width:100%;border-radius:16px;overflow:hidden;border:1px solid #e5e7eb;">
 
-<%- include('../common/header.ejs') %>
-
-    <table class="body" valign="top" role="presentation" border="0" cellpadding="0" cellspacing="0" style="outline: 0; width: 100%; min-width: 100%; height: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: Helvetica, Arial, sans-serif; line-height: 24px; font-weight: normal; font-size: 16px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; color: #000000; margin: 0; padding: 0; border-width: 0;">
-      <tbody>
-        <tr>
-          <td valign="top" style="line-height: 24px; font-size: 16px; margin: 0;" align="left">
-            <table class="container" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
-              <tbody>
+          <!-- Header -->
+          <tr>
+            <td bgcolor="#0f0c29" align="center" style="background-color:#0f0c29;padding:52px 40px 44px;">
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
                 <tr>
-                  <td align="center" style="line-height: 24px; font-size: 16px; margin: 0; padding: 0 16px;">
-                    <table align="center" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%; max-width: 600px; margin: 0 auto;">
-                      <tbody>
-                        <tr>
-                          <td style="line-height: 24px; font-size: 16px; margin: 0;" align="left">
-                            <table class="s-6 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
-                              <tbody>
-                                <tr>
-                                  <td style="line-height: 24px; font-size: 24px; width: 100%; height: 24px; margin: 0;" align="left" width="100%" height="24">
-                                    &#160;
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <img class="img-logo" src="https://res.cloudinary.com/dfta3fn6p/image/upload/v1676064213/public/logo/NJMTECH_ej4qzi.png" />
-                            <table class="s-6 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
-                              <tbody>
-                                <tr>
-                                  <td style="line-height: 24px; font-size: 24px; width: 100%; height: 24px; margin: 0;" align="left" width="100%" height="24">
-                                    &#160;
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <div class="space-y-4">
-                              <h1 class="text-4xl fw-800" style="padding-top: 0; padding-bottom: 0; font-weight: 800 !important; vertical-align: baseline; font-size: 36px; line-height: 43.2px; margin: 0;" align="left">Thanks for reaching out, <%= displayName %></h1>
-                              <table class="s-4 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
-                                <tbody>
-                                  <tr>
-                                    <td style="line-height: 16px; font-size: 16px; width: 100%; height: 16px; margin: 0;" align="left" width="100%" height="16">
-                                      &#160;
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                                <p style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left">
-                                  Thank you so much for your kind words! It truly means a lot to me. I'm delighted and glad that you reached out to me.
-                                  Once again, thank you for taking the time to express your appreciation. It's sincerely appreciated.
-                                </p>
-                                <p>
-                                  Warm regards,
-                                </p>
-                                <p>
-                                  <%= senderName %>
-                                </p>
-                              <table class="s-4 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
-                                <tbody>
-                                  <tr>
-                                    <td style="line-height: 16px; font-size: 16px; width: 100%; height: 16px; margin: 0;" align="left" width="100%" height="16">
-                                      &#160;
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                              <table class="btn btn-red-500 rounded-full px-6 w-full w-lg-48" role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-radius: 9999px; border-collapse: separate !important; width: 192px;" width="192">
-                                <tbody>
-                                  <tr>
-                                    <td style="line-height: 24px; font-size: 16px; border-radius: 9999px; width: 192px; margin: 0;" align="center" bgcolor="#dc3545" width="192">
-                                      <a href="https://njmtech.vercel.app/" style="color: #ffffff; font-size: 16px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; border-radius: 9999px; line-height: 20px; display: block; font-weight: normal; white-space: nowrap; background-color: #662B5A; padding: 8px 24px; border: 1px solid #662B5A;">Official website</a>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                            <table class="s-6 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
-                              <tbody>
-                                <tr>
-                                  <td style="line-height: 24px; font-size: 24px; width: 100%; height: 24px; margin: 0;" align="left" width="100%" height="24">
-                                    &#160;
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <table class="card rounded-3xl px-4 py-8 p-lg-10" role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-radius: 24px; border-collapse: separate !important; width: 100%; overflow: hidden; border: 1px solid #e2e8f0;" bgcolor="#ffffff">
-                              <tbody>
-                                <tr>
-                                  <td style="line-height: 24px; font-size: 16px; width: 100%; border-radius: 24px; margin: 0; padding: 40px;" align="left" bgcolor="#ffffff">
-                                    <a href="#" target="_parent">
-                                      <img style="width: 60vw"
-                                             src="https://res.cloudinary.com/dfta3fn6p/image/upload/v1709227716/public/images/img/png/contact-img_qiy3jv.png"
-                                             alt="Hero Image"
-                                      />
-                                    </a>
-                                    <p style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left">If you have any questions, contact us at <a href="mailto:<%= contactEmail %>" style="color: #0d6efd;"><%= contactEmail %></a>.</p>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <table class="s-6 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
-                              <tbody>
-                                <tr>
-                                  <td style="line-height: 24px; font-size: 24px; width: 100%; height: 24px; margin: 0;" align="left" width="100%" height="24">
-                                    &#160;
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <td width="52" height="52" bgcolor="#6366f1" align="center" valign="middle"
+                      style="background-color:#6366f1;border-radius:12px;font-size:22px;font-weight:700;color:#ffffff;font-family:'DM Sans',Arial,sans-serif;line-height:52px;text-align:center;">N</td>
+                </tr>
+              </table>
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr><td height="20" style="font-size:20px;line-height:20px;">&nbsp;</td></tr>
+              </table>
+              <h1 style="font-size:26px;font-weight:600;color:#f8f8ff;margin:0 0 8px;letter-spacing:-0.5px;font-family:'DM Sans',Arial,sans-serif;">Thanks for reaching out!</h1>
+              <p style="font-size:15px;color:#a5b4fc;margin:0;font-family:'DM Sans',Arial,sans-serif;">I'll be in touch soon</p>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td bgcolor="#ffffff" style="background-color:#ffffff;padding:32px 36px;">
+
+              <!-- Badge -->
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+                <tr>
+                  <td bgcolor="#ecfdf5" style="background-color:#ecfdf5;border-radius:20px;border:1px solid #6ee7b7;padding:5px 14px;">
+                    <span style="color:#10b981;font-size:13px;font-weight:500;font-family:'DM Sans',Arial,sans-serif;">&#10003; Message received</span>
                   </td>
                 </tr>
-              </tbody>
-            </table>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              </table>
 
-<%- include('../common/footer.ejs') %>
+              <!-- Greeting -->
+              <p style="color:#111827;font-size:16px;font-weight:500;margin:0 0 12px;font-family:'DM Sans',Arial,sans-serif;">Hi <%= displayName.split(' ')[0] %>,</p>
+              <p style="color:#6b7280;font-size:15px;line-height:1.7;margin:0 0 24px;font-family:'DM Sans',Arial,sans-serif;">Thank you for getting in touch &mdash; it truly means a lot. I've received your message and will get back to you as soon as possible. I'm looking forward to connecting with you.</p>
 
+              <!-- CTA button -->
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:28px;">
+                <tr>
+                  <td bgcolor="#4f46e5" style="background-color:#4f46e5;border-radius:10px;text-align:center;">
+                    <a href="https://<%= locals.siteUrl || 'njmtech.vercel.app' %>"
+                       style="display:block;padding:14px 32px;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;font-family:'DM Sans',Arial,sans-serif;white-space:nowrap;">
+                      Visit NJMTech &rarr;
+                    </a>
+                  </td>
+                </tr>
+              </table>
 
+              <!-- Contact info -->
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:24px;">
+                <tr>
+                  <td bgcolor="#f9fafb" style="background-color:#f9fafb;border-radius:10px;border:1px solid #f0f0f5;padding:16px 20px;">
+                    <p style="color:#6b7280;font-size:14px;margin:0;font-family:'DM Sans',Arial,sans-serif;">Have more questions? Email me directly at <a href="mailto:<%= contactEmail %>" style="color:#6366f1;text-decoration:none;"><%= contactEmail %></a></p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Divider -->
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:24px;">
+                <tr><td style="border-top:1px solid #f0f0f5;font-size:0;line-height:0;">&nbsp;</td></tr>
+              </table>
+
+              <!-- Sign-off -->
+              <p style="color:#6b7280;font-size:15px;line-height:1.7;margin:0;font-family:'DM Sans',Arial,sans-serif;">Warm regards,<br/>
+                <strong style="color:#6366f1;font-size:16px;"><%= senderName %></strong>
+              </p>
+
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td bgcolor="#f9fafb" align="center" style="background-color:#f9fafb;padding:20px 36px;border-top:1px solid #f0f0f5;">
+              <p style="color:#9ca3af;font-size:12px;margin:0;font-family:'DM Sans',Arial,sans-serif;">You're receiving this because you contacted via <a href="https://<%= locals.siteUrl || 'njmtech.vercel.app' %>" style="color:#9ca3af;text-decoration:underline;"><%= locals.siteUrl || 'njmtech.vercel.app' %></a></p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
