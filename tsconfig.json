@@ -13,5 +13,6 @@
       "*": ["node_modules/*", "src/types/*"],
     },
   },
-  "include": ["api", "tests"],
+  "include": ["api"],
+  "exclude": ["node_modules", "dist", "tests"]
 }

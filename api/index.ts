@@ -2,7 +2,6 @@
 import bodyParser from 'body-parser';
 import path from 'path';
 import nodemailer from 'nodemailer';
-import serverless from 'serverless-http';
 import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
 
@@ -93,9 +92,9 @@ api.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 export { api };
-export default serverless(api);
+export default api;
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   const PORT = process.env.PORT || 3001;
   api.listen(PORT, () => console.log(`Email Template API running on http://localhost:${PORT}`));
 }
