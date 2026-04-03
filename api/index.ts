@@ -48,10 +48,6 @@ const PREVIEW_FIXTURES: Record<string, Record<string, string>> = {
   },
 };
 
-api.get('/preview', (req: Request, res: Response) => {
-  res.render('pages/preview', { title: 'Template Preview — Email Template API' });
-});
-
 api.get('/preview/:template', async (req: Request, res: Response) => {
   const { template } = req.params;
   const fixtures = PREVIEW_FIXTURES[template];
@@ -131,6 +127,10 @@ api.post('/template', async (req: Request, res: Response, next: NextFunction) =>
   }
 
   res.status(200).send(html);
+});
+
+api.use((req: Request, res: Response) => {
+  res.status(404).render('pages/404', { title: '404 — Page Not Found' });
 });
 
 api.use((err: Error, req: Request, res: Response, next: NextFunction) => {
