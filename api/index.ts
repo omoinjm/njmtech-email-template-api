@@ -34,17 +34,17 @@ const PREVIEW_FIXTURES: Record<string, Record<string, string>> = {
   contact_confirmation: {
     displayName: 'Jane Smith',
     message: "Hi there! I've been following your work and would love to collaborate on a future project. Your portfolio really stands out — impressive stuff!",
-    siteUrl: 'https://njmtech.vercel.app',
+    siteUrl: 'https://njmtech.co.za',
   },
   subscribe_welcome: {
     firstName: 'Jane',
-    siteUrl: 'https://njmtech.vercel.app',
+    siteUrl: 'https://njmtech.co.za',
     unsubscribeUrl: '#',
   },
   thank_you: {
     displayName: 'Jane Smith',
-    contactEmail: process.env.CONTACT_EMAIL || 'hello@njmtech.vercel.app',
-    siteUrl: 'https://njmtech.vercel.app',
+    contactEmail: process.env.CONTACT_EMAIL || 'hello@njmtech.co.za',
+    siteUrl: 'https://njmtech.co.za',
   },
 };
 
