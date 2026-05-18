@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>You're on the list!</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" type="text/css"/>
+  <!--[if mso]>
+  <style type="text/css">body,table,td,a{font-family:Arial,Helvetica,sans-serif!important;}</style>
+  <![endif]-->
+</head>
+<body style="margin:0;padding:0;background-color:#0d0d0d;">
+  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#0d0d0d;">
+    <tr>
+      <td align="center" style="padding:40px 16px;">
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" style="max-width:600px;width:100%;border-radius:16px;overflow:hidden;border:1px solid #2a2522;background-color:#121212;">
+          <tr>
+            <td bgcolor="#121212" align="center" style="background-color:#121212;padding:52px 40px 44px;border-bottom:1px solid #2a2522;">
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+                <tr>
+                  <td width="52" height="52" bgcolor="#1a1a1a" align="center" valign="middle"
+                      style="background-color:#1a1a1a;border-radius:12px;border:1px solid #8e2a2a;font-size:20px;font-weight:700;color:#f0e7df;font-family:'DM Sans',Arial,sans-serif;line-height:52px;text-align:center;">SG</td>
+                </tr>
+              </table>
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr><td height="20" style="font-size:20px;line-height:20px;">&nbsp;</td></tr>
+              </table>
+              <h1 style="font-size:26px;font-weight:600;color:#f0e7df;margin:0 0 8px;letter-spacing:-0.5px;font-family:'DM Sans',Arial,sans-serif;">You're on the list!</h1>
+              <p style="font-size:15px;color:#b8aba0;margin:0;font-family:'DM Sans',Arial,sans-serif;">Thanks for subscribing to Style &amp; Grace updates</p>
+            </td>
+          </tr>
+          <tr>
+            <td bgcolor="#121212" style="background-color:#121212;padding:32px 36px;">
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+                <tr>
+                  <td bgcolor="#1a1414" style="background-color:#1a1414;border-radius:20px;border:1px solid #8e2a2a;padding:5px 14px;">
+                    <span style="color:#b93636;font-size:13px;font-weight:500;font-family:'DM Sans',Arial,sans-serif;">&#10003; Subscription confirmed</span>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="color:#f0e7df;font-size:16px;font-weight:500;margin:0 0 12px;font-family:'DM Sans',Arial,sans-serif;">Hey <%= locals.firstName || 'there' %> &#128075;</p>
+              <p style="color:#c4b7ad;font-size:15px;line-height:1.7;margin:0 0 20px;font-family:'DM Sans',Arial,sans-serif;">You've successfully subscribed to Style &amp; Grace updates. We'll share thoughtful notes, launches, and a few lovely things worth opening.</p>
+
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:28px;">
+                <tr>
+                  <td bgcolor="#151515" style="background-color:#151515;border:1px solid #2a2522;border-radius:8px;padding:10px 18px;">
+                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td width="8" height="8" bgcolor="#8e2a2a" style="background-color:#8e2a2a;border-radius:50%;font-size:0;line-height:0;">&nbsp;</td>
+                        <td style="padding-left:8px;color:#c4b7ad;font-size:13px;font-family:'DM Sans',Arial,sans-serif;vertical-align:middle;">Expect thoughtful updates, not spam</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:24px;">
+                <tr><td style="border-top:1px solid #2a2522;font-size:0;line-height:0;">&nbsp;</td></tr>
+              </table>
+
+              <p style="color:#c4b7ad;font-size:15px;line-height:1.7;margin:0;font-family:'DM Sans',Arial,sans-serif;">See you soon,<br/>
+                <strong style="color:#c54b4b;font-size:16px;"><%= senderName %></strong>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td bgcolor="#121212" align="center" style="background-color:#121212;padding:20px 36px;border-top:1px solid #2a2522;">
+              <p style="color:#8b7f76;font-size:12px;margin:0 0 6px;font-family:'DM Sans',Arial,sans-serif;">You're receiving this because you subscribed via <a href="<%= locals.siteUrl || '#' %>" style="color:#8b7f76;text-decoration:underline;"><%= locals.siteUrl || 'our website' %></a></p>
+              <p style="color:#8b7f76;font-size:12px;margin:0;font-family:'DM Sans',Arial,sans-serif;">
+                <a href="<%= locals.unsubscribeUrl || '#' %>" style="color:#8b7f76;text-decoration:underline;">Unsubscribe</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
