@@ -63,11 +63,20 @@ Set your environment variables in the Vercel dashboard under **Project → Setti
 
 ## Adding New Templates
 
-1. Create a new `.ejs` file in `api/views/pages/` (e.g. `welcome.ejs`)
+1. Create a new `.ejs` file in `api/views/pages/` for the default NJMTech templates, or in `api/views/pages/clients/<client>/` for client-specific templates.
 2. Available template variables:
    - `title` – page title
    - `isHome` – boolean, `false` for email templates
    - `displayName` – recipient's full name
    - `senderName` – from `SENDER_NAME` env var
    - `contactEmail` – from `CONTACT_EMAIL` env var
+   - `siteUrl` – site URL used in links and footer copy
 3. Call `POST /template` with `template_name=welcome`
+4. If the template belongs to a client namespace, also send `client=<client-slug>`
+
+## API Docs
+
+- Swagger UI: `GET /docs`
+- OpenAPI JSON: `GET /openapi.json`
+- Default template previews: `GET /preview/:template`
+- Client template previews: `GET /preview/:client/:template`

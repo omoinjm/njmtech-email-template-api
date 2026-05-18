@@ -372,6 +372,7 @@
         email-client-safe HTML templates — built for NJMTech projects.
       </p>
       <div class="hero-actions">
+        <a class="btn-primary" href="/docs">API Docs</a>
         <a class="btn-outline" href="https://njmtech.co.za/" target="_blank" rel="noopener">Official Website</a>
       </div>
     </section>
@@ -391,41 +392,69 @@
           <span class="method-badge method-get">GET</span>
           <div>
             <p class="endpoint-path">/preview/:template</p>
-            <p class="endpoint-desc">Render a template with sample data for visual inspection.</p>
+            <p class="endpoint-desc">Render a default template with sample data, or keep using the optional <code>client</code> query param.</p>
+          </div>
+        </div>
+        <div class="endpoint-card">
+          <span class="method-badge method-get">GET</span>
+          <div>
+            <p class="endpoint-path">/preview/:client/:template</p>
+            <p class="endpoint-desc">Render a client-specific template preview directly by namespace.</p>
           </div>
         </div>
         <div class="endpoint-card">
           <span class="method-badge method-post">POST</span>
           <div>
             <p class="endpoint-path">/template</p>
-            <p class="endpoint-desc">Render a template as HTML. Body: <code>template_name</code>, <code>first_name</code>, <code>last_name</code> + template vars.</p>
+            <p class="endpoint-desc">Render a template as HTML. Body: <code>client</code> (optional), <code>template_name</code>, <code>first_name</code>, <code>last_name</code> + template vars.</p>
+          </div>
+        </div>
+        <div class="endpoint-card">
+          <span class="method-badge method-get">GET</span>
+          <div>
+            <p class="endpoint-path">/openapi.json</p>
+            <p class="endpoint-desc">Machine-readable OpenAPI document for the service.</p>
+          </div>
+        </div>
+        <div class="endpoint-card">
+          <span class="method-badge method-get">GET</span>
+          <div>
+            <p class="endpoint-path">/docs</p>
+            <p class="endpoint-desc">Interactive API docs powered by the OpenAPI document.</p>
           </div>
         </div>
       </div>
 
       <p class="section-label">Available Templates</p>
-      <div class="template-chips" style="margin-top:10px;">
-        <div class="template-chip" data-template="contact_notification" data-label="Contact Notification">
-          <p class="chip-name">Contact Notification</p>
-          <p class="chip-key">contact_notification</p>
-          <p class="chip-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg> Preview</p>
+      <% previewCollections.forEach(function(collection, index) { %>
+        <div style="<%= index === 0 ? 'margin-top:10px;' : 'margin-top:24px;' %>">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap;">
+            <div>
+              <p style="font-size:14px;font-weight:700;color:#1e1b4b;"><%= collection.label %></p>
+              <p style="font-size:12px;color:#6b7280;margin-top:4px;">
+                Preview route:
+                <code><%= collection.key === defaultClientKey ? '/preview/:template' : '/preview/' + collection.key + '/:template' %></code>
+              </p>
+            </div>
+            <span class="method-badge method-get"><%= collection.key %></span>
+          </div>
+          <div class="template-chips">
+            <% collection.templates.forEach(function(template) { %>
+              <div
+                class="template-chip"
+                data-client="<%= collection.key %>"
+                data-client-label="<%= collection.label %>"
+                data-template="<%= template.name %>"
+                data-label="<%= template.label %>"
+              >
+                <p class="chip-name"><%= template.label %></p>
+                <p class="chip-key"><%= template.name %></p>
+                <p class="chip-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg> Preview <%= collection.label %></p>
+              </div>
+            <% }) %>
+          </div>
         </div>
-        <div class="template-chip" data-template="contact_confirmation" data-label="Contact Confirmation">
-          <p class="chip-name">Contact Confirmation</p>
-          <p class="chip-key">contact_confirmation</p>
-          <p class="chip-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg> Preview</p>
-        </div>
-        <div class="template-chip" data-template="subscribe_welcome" data-label="Subscribe Welcome">
-          <p class="chip-name">Subscribe Welcome</p>
-          <p class="chip-key">subscribe_welcome</p>
-          <p class="chip-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg> Preview</p>
-        </div>
-        <div class="template-chip" data-template="thank_you" data-label="Thank You">
-          <p class="chip-name">Thank You</p>
-          <p class="chip-key">thank_you</p>
-          <p class="chip-hint"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg> Preview</p>
-        </div>
-      </div>
+      <% }) %>
 
     </div>
   </div>
@@ -454,11 +483,15 @@
     const newtab   = document.getElementById('modal-newtab');
     const label    = document.getElementById('modal-template-label');
 
-    function openModal(template, displayLabel) {
-      const url = '/preview/' + template;
+    function buildPreviewUrl(client, template) {
+      return client === '<%= defaultClientKey %>' ? '/preview/' + template : '/preview/' + client + '/' + template;
+    }
+
+    function openModal(client, clientLabel, template, displayLabel) {
+      const url = buildPreviewUrl(client, template);
       iframe.src = url;
       newtab.href = url;
-      label.textContent = displayLabel;
+      label.textContent = clientLabel + ' / ' + displayLabel;
       backdrop.classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -471,7 +504,7 @@
 
     document.querySelectorAll('.template-chip[data-template]').forEach(function(chip) {
       chip.addEventListener('click', function() {
-        openModal(chip.dataset.template, chip.dataset.label);
+        openModal(chip.dataset.client, chip.dataset.clientLabel, chip.dataset.template, chip.dataset.label);
       });
     });
 
