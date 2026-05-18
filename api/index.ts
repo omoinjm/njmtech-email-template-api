@@ -451,6 +451,11 @@ function buildOpenApiDocument() {
               format: 'email',
               description: 'Optional destination email. When omitted, the template is only rendered.',
             },
+            site_url: {
+              type: 'string',
+              format: 'uri',
+              description: 'Optional URL exposed to templates for CTA links and footer references.',
+            },
           },
           additionalProperties: true,
           example: {
@@ -459,6 +464,7 @@ function buildOpenApiDocument() {
             first_name: 'Jane',
             last_name: 'Smith',
             email: 'jane@example.com',
+            site_url: 'https://styleandgrace.co.za',
             message: 'Thanks for your order!',
           },
         },
@@ -563,7 +569,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 api.post('/template', async (req: Request, res: Response, next: NextFunction) => {
-  const { client, template_name, first_name, last_name, email, ...extraVars } = req.body;
+  const { client, template_name, first_name, last_name, email, site_url, siteUrl, ...extraVars } = req.body;
   const missingParams: string[] = [];
 
   if (!template_name) missingParams.push('template_name');
@@ -604,6 +610,7 @@ api.post('/template', async (req: Request, res: Response, next: NextFunction) =>
       lastName: last_name,
       email,
       ...clientDefaults,
+      siteUrl: site_url ?? siteUrl ?? clientDefaults.siteUrl,
       ...extraVars,
     });
   } catch {

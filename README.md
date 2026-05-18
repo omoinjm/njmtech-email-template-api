@@ -60,6 +60,7 @@ Renders an EJS template and optionally sends it as an email.
 | `first_name`    | ✅       | Recipient's first name                           |
 | `last_name`     | ✅       | Recipient's last name                            |
 | `email`         | ❌       | If provided, sends the rendered template via SMTP |
+| `site_url`      | ❌       | Optional URL injected into template links such as CTA buttons |
 
 Default templates are resolved from `api/views/pages/`. Client-specific templates are resolved from `api/views/pages/clients/<client>/`.
 

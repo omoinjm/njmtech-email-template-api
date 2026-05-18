@@ -71,8 +71,9 @@ Set your environment variables in the Vercel dashboard under **Project → Setti
    - `senderName` – from `SENDER_NAME` env var
    - `contactEmail` – from `CONTACT_EMAIL` env var
    - `siteUrl` – site URL used in links and footer copy
-3. Call `POST /template` with `template_name=welcome`
-4. If the template belongs to a client namespace, also send `client=<client-slug>`
+3. Pass template-specific values such as `site_url` in the `POST /template` body when a template needs a live CTA destination.
+4. Call `POST /template` with `template_name=welcome`
+5. If the template belongs to a client namespace, also send `client=<client-slug>`
 
 ## API Docs
 

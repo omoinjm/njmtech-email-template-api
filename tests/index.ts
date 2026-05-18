@@ -42,6 +42,7 @@ describe('GET /preview/:template', () => {
     const res = await request(api).get('/preview/thank_you').query({ client: 'style-and-grace' });
     expect(res.status).toEqual(200);
     expect(res.text).toContain('Style &amp; Grace');
+    expect(res.text).toContain('Thanks for your order!');
   });
 });
 
@@ -50,6 +51,7 @@ describe('GET /preview/:client/:template', () => {
     const res = await request(api).get('/preview/style-and-grace/thank_you');
     expect(res.status).toEqual(200);
     expect(res.text).toContain('Style &amp; Grace');
+    expect(res.text).toContain('Order confirmed');
   });
 });
 
@@ -144,9 +146,12 @@ describe('POST /template', () => {
         template_name: 'thank_you',
         first_name: 'John',
         last_name: 'Doe',
+        site_url: 'https://styleandgrace.co.za',
       });
 
     expect(res.status).toEqual(200);
     expect(res.text).toContain('Style &amp; Grace');
+    expect(res.text).toContain('Continue shopping');
+    expect(res.text).toContain('https://styleandgrace.co.za');
   });
 });
