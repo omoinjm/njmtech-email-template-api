@@ -1,51 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'DM Sans',sans-serif;background:#f4f4f8;padding:40px 16px;}
-</style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>New message from <%= displayName %></title>
+  <!-- Web font for clients that support it (Apple Mail, Outlook webmail) -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" type="text/css"/>
+  <!-- Outlook font fallback -->
+  <!--[if mso]>
+  <style type="text/css">body,table,td,a{font-family:Arial,Helvetica,sans-serif!important;}</style>
+  <![endif]-->
 </head>
-<body style="background:#f4f4f8;padding:40px 16px;">
-  <div style="max-width:600px;margin:0 auto;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
-    <!-- Header -->
-    <div style="background:#0f0c29;padding:52px 40px 44px;text-align:center;">
-      <div style="display:block;width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,#6366f1,#818cf8);margin:0 auto 20px;line-height:52px;font-size:22px;font-weight:700;color:#ffffff;text-align:center;">N</div>
-      <h1 style="font-size:26px;font-weight:600;color:#f8f8ff;margin:0 0 8px;letter-spacing:-0.5px;font-family:'DM Sans',sans-serif;">New message incoming</h1>
-      <p style="font-size:15px;color:#a5b4fc;margin:0;font-family:'DM Sans',sans-serif;">Someone reached out via your portfolio</p>
-    </div>
-    <!-- Body -->
-    <div style="background:#ffffff;padding:32px 36px;">
-      <span style="display:inline-block;background:#ede9fe;color:#4f46e5;font-size:11px;font-weight:600;letter-spacing:0.3px;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:24px;">Portfolio Contact</span>
-      <!-- Sender details -->
-      <div style="margin-bottom:20px;">
-        <div style="display:flex;align-items:baseline;padding:12px 0;border-bottom:1px solid #f0f0f5;">
-          <span style="min-width:70px;color:#9ca3af;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;font-weight:500;">Name</span>
-          <span style="color:#111827;font-size:15px;font-weight:500;"><%= displayName %></span>
-        </div>
-        <div style="display:flex;align-items:baseline;padding:12px 0;border-bottom:1px solid #f0f0f5;">
-          <span style="min-width:70px;color:#9ca3af;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;font-weight:500;">Email</span>
-          <span style="color:#111827;font-size:15px;"><a href="mailto:<%= email %>" style="color:#6366f1;text-decoration:none;"><%= email %></a></span>
-        </div>
-        <div style="display:flex;align-items:baseline;padding:12px 0;border-bottom:1px solid #f0f0f5;">
-          <span style="min-width:70px;color:#9ca3af;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;font-weight:500;">Subject</span>
-          <span style="color:#111827;font-size:15px;font-weight:500;"><%= subject %></span>
-        </div>
-      </div>
-      <!-- Message -->
-      <div style="background:#f9fafb;border-radius:10px;border:1px solid #f0f0f5;padding:20px 24px;margin-bottom:28px;">
-        <p style="color:#374151;font-size:15px;line-height:1.7;white-space:pre-wrap;"><%= message %></p>
-      </div>
-      <!-- CTA -->
-      <a href="mailto:<%= email %>?subject=Re: <%= subject %>" style="display:block;text-align:center;background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;text-decoration:none;font-size:15px;font-weight:600;padding:14px;border-radius:10px;">Reply to <%= displayName.split(' ')[0] %> &rarr;</a>
-    </div>
-    <!-- Footer -->
-    <div style="background:#f9fafb;padding:20px 36px;text-align:center;border-top:1px solid #f0f0f5;">
-      <p style="color:#9ca3af;font-size:12px;">Sent via your portfolio contact form &middot; Hit Reply to respond directly</p>
-    </div>
-  </div>
+<body style="margin:0;padding:0;background-color:#f4f4f8;">
+  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#f4f4f8;">
+    <tr>
+      <td align="center" style="padding:40px 16px;">
+        <!-- Card -->
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" style="max-width:600px;width:100%;border-radius:16px;overflow:hidden;border:1px solid #e5e7eb;">
+
+          <!-- Header -->
+          <tr>
+            <td bgcolor="#0f0c29" align="center" style="background-color:#0f0c29;padding:52px 40px 44px;">
+              <!-- Logo mark -->
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+                <tr>
+                  <td width="52" height="52" bgcolor="#6366f1" align="center" valign="middle"
+                      style="background-color:#6366f1;border-radius:12px;font-size:22px;font-weight:700;color:#ffffff;font-family:'DM Sans',Arial,sans-serif;line-height:52px;text-align:center;">N</td>
+                </tr>
+              </table>
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr><td height="20" style="font-size:20px;line-height:20px;">&nbsp;</td></tr>
+              </table>
+              <h1 style="font-size:26px;font-weight:600;color:#f8f8ff;margin:0 0 8px;letter-spacing:-0.5px;font-family:'DM Sans',Arial,sans-serif;">New message incoming</h1>
+              <p style="font-size:15px;color:#a5b4fc;margin:0;font-family:'DM Sans',Arial,sans-serif;">Someone reached out via your portfolio</p>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td bgcolor="#ffffff" style="background-color:#ffffff;padding:32px 36px;">
+
+              <!-- Badge -->
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+                <tr>
+                  <td bgcolor="#ede9fe" style="background-color:#ede9fe;border-radius:20px;padding:4px 12px;">
+                    <span style="color:#4f46e5;font-size:11px;font-weight:600;letter-spacing:0.3px;text-transform:uppercase;font-family:'DM Sans',Arial,sans-serif;">Portfolio Contact</span>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Sender details — table replaces flex rows -->
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:20px;">
+                <tr>
+                  <td width="80" valign="top" style="padding:12px 0;border-bottom:1px solid #f0f0f5;color:#9ca3af;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;font-weight:500;font-family:'DM Sans',Arial,sans-serif;">Name</td>
+                  <td valign="top" style="padding:12px 0;border-bottom:1px solid #f0f0f5;color:#111827;font-size:15px;font-weight:500;font-family:'DM Sans',Arial,sans-serif;"><%= displayName %></td>
+                </tr>
+                <tr>
+                  <td width="80" valign="top" style="padding:12px 0;border-bottom:1px solid #f0f0f5;color:#9ca3af;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;font-weight:500;font-family:'DM Sans',Arial,sans-serif;">Email</td>
+                  <td valign="top" style="padding:12px 0;border-bottom:1px solid #f0f0f5;font-size:15px;font-family:'DM Sans',Arial,sans-serif;">
+                    <a href="mailto:<%= email %>" style="color:#6366f1;text-decoration:none;"><%= email %></a>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="80" valign="top" style="padding:12px 0;border-bottom:1px solid #f0f0f5;color:#9ca3af;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;font-weight:500;font-family:'DM Sans',Arial,sans-serif;">Subject</td>
+                  <td valign="top" style="padding:12px 0;border-bottom:1px solid #f0f0f5;color:#111827;font-size:15px;font-weight:500;font-family:'DM Sans',Arial,sans-serif;"><%= subject %></td>
+                </tr>
+              </table>
+
+              <!-- Message box -->
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:28px;">
+                <tr>
+                  <td bgcolor="#f9fafb" style="background-color:#f9fafb;border-radius:10px;border:1px solid #f0f0f5;padding:20px 24px;">
+                    <p style="color:#374151;font-size:15px;line-height:1.7;margin:0;font-family:'DM Sans',Arial,sans-serif;white-space:pre-wrap;"><%= message %></p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- CTA button — table-based, no CSS gradient (solid colour for Outlook) -->
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                  <td align="center">
+                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td bgcolor="#4f46e5" style="background-color:#4f46e5;border-radius:10px;text-align:center;">
+                          <a href="mailto:<%= email %>?subject=<%= encodeURIComponent('Re: ' + subject) %>"
+                             style="display:block;padding:14px 32px;color:#ffffff;text-decoration:none;font-size:15px;font-weight:600;font-family:'DM Sans',Arial,sans-serif;white-space:nowrap;">
+                            Reply to <%= displayName.split(' ')[0] %> &rarr;
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td bgcolor="#f9fafb" align="center" style="background-color:#f9fafb;padding:20px 36px;border-top:1px solid #f0f0f5;">
+              <p style="color:#9ca3af;font-size:12px;margin:0;font-family:'DM Sans',Arial,sans-serif;">Sent via your portfolio contact form &middot; Hit Reply to respond directly</p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
 </body>
 </html>

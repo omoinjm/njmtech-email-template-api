@@ -63,12 +63,22 @@ Set your environment variables in the Vercel dashboard under **Project → Setti
 
 ## Adding New Templates
 
-1. Create a new `.ejs` file in `api/views/pages/` (e.g. `welcome.ejs`), or in `api/views/pages/clients/<client>/` for a client-specific variant.
+1. Create a new `.ejs` file in `api/views/pages/` for the default NJMTech templates, or in `api/views/pages/clients/<client>/` for client-specific templates.
 2. Available template variables:
    - `title` – page title
    - `isHome` – boolean, `false` for email templates
    - `displayName` – recipient's full name
    - `senderName` – from `SENDER_NAME` env var
    - `contactEmail` – from `CONTACT_EMAIL` env var
-3. Client-specific templates can receive additional fields from the request body, such as the Style & Grace `thank_you` order fields: `order_number`, `order_date`, `payment_status`, `shipping_method`, `estimated_delivery`, `order_items`, `subtotal`, `shipping`, `discount`, `tax`, `total`, `shipping_address`, `billing_address`, and `site_url`.
+   - `siteUrl` – site URL used in links and footer copy
+   - Client templates can also use order-specific values such as `order_number`, `order_date`, `payment_status`, `shipping_method`, `estimated_delivery`, `order_items`, `subtotal`, `shipping`, `discount`, `tax`, `total`, `shipping_address`, and `billing_address`
+3. Pass template-specific values such as `site_url` in the `POST /template` body when a template needs a live CTA destination.
 4. Call `POST /template` with `template_name=welcome`
+5. If the template belongs to a client namespace, also send `client=<client-slug>`
+
+## API Docs
+
+- Swagger UI: `GET /docs`
+- OpenAPI JSON: `GET /openapi.json`
+- Default template previews: `GET /preview/:template`
+- Client template previews: `GET /preview/:client/:template`

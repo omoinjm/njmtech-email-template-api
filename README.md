@@ -30,6 +30,24 @@ See [`docs/set-up.md`](./docs/set-up.md) for full setup instructions.
 ### `GET /`
 Returns the landing page.
 
+### `GET /docs`
+Returns the Swagger UI documentation page.
+
+### `GET /openapi.json`
+Returns the OpenAPI document used by `/docs`.
+
+### `GET /preview/:template`
+Renders a default template preview with fixture data.
+
+**Query parameters:**
+
+| Field    | Required | Description |
+|----------|----------|-------------|
+| `client` | ❌       | Client namespace. Omit it or use `default` for NJMTech templates. Use `style-and-grace` for the first client set. |
+
+### `GET /preview/:client/:template`
+Renders a client-specific template preview directly by namespace.
+
 ### `POST /template`
 Renders an EJS template and optionally sends it as an email.
 
@@ -37,13 +55,16 @@ Renders an EJS template and optionally sends it as an email.
 
 | Field           | Required | Description                                      |
 |----------------|----------|--------------------------------------------------|
-| `client`        | ❌       | Optional client namespace, e.g. `style-and-grace` |
+| `client`        | ❌       | Client namespace. Defaults to `default` (NJMTech). |
 | `template_name` | ✅       | Name of the EJS template (e.g. `thank_you`)      |
 | `first_name`    | ✅       | Recipient's first name                           |
 | `last_name`     | ✅       | Recipient's last name                            |
 | `email`         | ❌       | If provided, sends the rendered template via SMTP |
+| `site_url`      | ❌       | Optional URL injected into template links such as CTA buttons |
 
-For the Style & Grace `thank_you` template, you can also pass order fields such as `order_number`, `order_date`, `payment_status`, `shipping_method`, `estimated_delivery`, `order_items`, `subtotal`, `shipping`, `discount`, `tax`, `total`, `shipping_address`, `billing_address`, and `site_url`.
+Default templates are resolved from `api/views/pages/`. Client-specific templates are resolved from `api/views/pages/clients/<client>/`.
+
+For the Style & Grace `thank_you` template, you can also pass order fields such as `order_number`, `order_date`, `payment_status`, `shipping_method`, `estimated_delivery`, `order_items`, `subtotal`, `shipping`, `discount`, `tax`, `total`, `shipping_address`, and `billing_address`.
 
 **Responses:**
 - `200` – Rendered HTML template
