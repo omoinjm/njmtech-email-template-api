@@ -8,6 +8,7 @@ import rateLimit from 'express-rate-limit';
 dotenv.config();
 
 const api = express();
+const IDENTIFIER_PATTERN = /^[a-z0-9_-]+$/;
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -20,6 +21,33 @@ api.use(bodyParser.urlencoded({ extended: true }));
 api.set('view engine', 'ejs');
 api.set('views', path.join(__dirname, 'views'));
 
+function normalizeIdentifier(value: unknown): string | null {
+  if (typeof value !== 'string') {
+    return null;
+  }
+
+  const normalized = value.trim().toLowerCase();
+  return IDENTIFIER_PATTERN.test(normalized) ? normalized : null;
+}
+
+function resolveTemplateView(client: unknown, templateName: unknown): { view?: string; error?: string } {
+  const normalizedTemplateName = normalizeIdentifier(templateName);
+  if (!normalizedTemplateName) {
+    return { error: 'Invalid template_name. Use lowercase letters, numbers, hyphens, or underscores.' };
+  }
+
+  if (client == null || client === '') {
+    return { view: `pages/${normalizedTemplateName}` };
+  }
+
+  const normalizedClient = normalizeIdentifier(client);
+  if (!normalizedClient) {
+    return { error: 'Invalid client. Use lowercase letters, numbers, hyphens, or underscores.' };
+  }
+
+  return { view: `pages/clients/${normalizedClient}/${normalizedTemplateName}` };
+}
+
 api.get('/', (req: Request, res: Response) => {
   res.render('pages/home', { title: 'Email Template API', isHome: true });
 });
@@ -29,7 +57,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 api.post('/template', async (req: Request, res: Response, next: NextFunction) => {
-  const { template_name, first_name, last_name, email, ...extraVars } = req.body;
+  const { client, template_name, first_name, last_name, email, ...extraVars } = req.body;
   const missingParams: string[] = [];
 
   if (!template_name) missingParams.push('template_name');
@@ -43,12 +71,17 @@ api.post('/template', async (req: Request, res: Response, next: NextFunction) =>
   const displayName = `${first_name} ${last_name}`;
   const senderName = process.env.SENDER_NAME || 'NJMTech';
   const contactEmail = process.env.CONTACT_EMAIL || '';
+  const { view, error: viewError } = resolveTemplateView(client, template_name);
+
+  if (viewError) {
+    return res.status(400).json({ error: viewError });
+  }
 
   let html: string;
   try {
     html = await new Promise<string>((resolve, reject) => {
       res.render(
-        `pages/${template_name}`,
+        view!,
         { title: 'Thank You', isHome: false, displayName, senderName, contactEmail, email, ...extraVars },
         (err: Error | null, str: string) => {
           if (err) reject(err);

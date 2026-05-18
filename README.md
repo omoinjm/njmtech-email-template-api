@@ -37,10 +37,13 @@ Renders an EJS template and optionally sends it as an email.
 
 | Field           | Required | Description                                      |
 |----------------|----------|--------------------------------------------------|
+| `client`        | ❌       | Optional client namespace, e.g. `style-and-grace` |
 | `template_name` | ✅       | Name of the EJS template (e.g. `thank_you`)      |
 | `first_name`    | ✅       | Recipient's first name                           |
 | `last_name`     | ✅       | Recipient's last name                            |
 | `email`         | ❌       | If provided, sends the rendered template via SMTP |
+
+For the Style & Grace `thank_you` template, you can also pass order fields such as `order_number`, `order_date`, `payment_status`, `shipping_method`, `estimated_delivery`, `order_items`, `subtotal`, `shipping`, `discount`, `tax`, `total`, `shipping_address`, `billing_address`, and `site_url`.
 
 **Responses:**
 - `200` – Rendered HTML template
@@ -62,4 +65,3 @@ Renders an EJS template and optionally sends it as an email.
 ## Environment Variables
 
 See [`.env.example`](./.env.example) for the full list.
-

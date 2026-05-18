@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>Thanks for your order!</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" type="text/css"/>
+  <!--[if mso]>
+  <style type="text/css">body,table,td,a{font-family:Arial,Helvetica,sans-serif!important;}</style>
+  <![endif]-->
+</head>
+<body style="margin:0;padding:0;background-color:#f6f1ee;">
+  <%
+    const orderItems = Array.isArray(order_items) ? order_items : [];
+    const orderSummary = [
+      ['Order number', order_number],
+      ['Order date', order_date],
+      ['Payment status', payment_status],
+      ['Shipping method', shipping_method],
+      ['Estimated delivery', estimated_delivery],
+    ].filter(([, value]) => value);
+    const totals = [
+      ['Subtotal', subtotal],
+      ['Shipping', shipping],
+      ['Discount', discount],
+      ['Tax', tax],
+      ['Total', total],
+    ].filter(([, value]) => value);
+  %>
+  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#f6f1ee;">
+    <tr>
+      <td align="center" style="padding:40px 16px;">
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="640" style="max-width:640px;width:100%;border-radius:18px;overflow:hidden;border:1px solid #eadfd8;background-color:#ffffff;">
+          <tr>
+            <td bgcolor="#2b1716" align="center" style="background-color:#2b1716;padding:44px 40px 36px;">
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+                <tr>
+                  <td width="56" height="56" bgcolor="#8e2a2a" align="center" valign="middle" style="background-color:#8e2a2a;border-radius:14px;font-size:20px;font-weight:700;color:#fff8f4;font-family:'DM Sans',Arial,sans-serif;line-height:56px;text-align:center;">SG</td>
+                </tr>
+              </table>
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr><td height="18" style="font-size:18px;line-height:18px;">&nbsp;</td></tr>
+              </table>
+              <h1 style="font-size:30px;font-weight:700;color:#fff8f4;margin:0 0 8px;font-family:'DM Sans',Arial,sans-serif;">Thanks for your order!</h1>
+              <p style="font-size:15px;color:#dbc6bf;margin:0;font-family:'DM Sans',Arial,sans-serif;">Your Style &amp; Grace order is confirmed and being prepared.</p>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="padding:32px 36px;background-color:#ffffff;">
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+                <tr>
+                  <td bgcolor="#f8ebe8" style="background-color:#f8ebe8;border-radius:20px;border:1px solid #d7aaa8;padding:6px 14px;">
+                    <span style="color:#8e2a2a;font-size:13px;font-weight:600;font-family:'DM Sans',Arial,sans-serif;">&#10003; Order confirmed</span>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="color:#2b1716;font-size:16px;font-weight:500;margin:0 0 12px;font-family:'DM Sans',Arial,sans-serif;">Hi <%= displayName.split(' ')[0] %>,</p>
+              <p style="color:#6d5a53;font-size:15px;line-height:1.7;margin:0 0 24px;font-family:'DM Sans',Arial,sans-serif;">Thank you for shopping with Style &amp; Grace. We have received your order and will send your shipping update as soon as your pieces are on the way.</p>
+
+              <% if (orderSummary.length > 0) { %>
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:24px;border:1px solid #efe4de;border-radius:14px;">
+                  <tr>
+                    <td style="padding:20px 22px;background-color:#fffaf7;">
+                      <p style="color:#2b1716;font-size:16px;font-weight:600;margin:0 0 14px;font-family:'DM Sans',Arial,sans-serif;">Order summary</p>
+                      <% orderSummary.forEach(([label, value]) => { %>
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:10px;">
+                          <tr>
+                            <td style="color:#8b746c;font-size:13px;font-family:'DM Sans',Arial,sans-serif;"><%= label %></td>
+                            <td align="right" style="color:#2b1716;font-size:13px;font-weight:600;font-family:'DM Sans',Arial,sans-serif;"><%= value %></td>
+                          </tr>
+                        </table>
+                      <% }) %>
+                    </td>
+                  </tr>
+                </table>
+              <% } %>
+
+              <% if (orderItems.length > 0) { %>
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:24px;border:1px solid #efe4de;border-radius:14px;">
+                  <tr>
+                    <td style="padding:20px 22px;background-color:#ffffff;">
+                      <p style="color:#2b1716;font-size:16px;font-weight:600;margin:0 0 16px;font-family:'DM Sans',Arial,sans-serif;">Items in your order</p>
+                      <% orderItems.forEach((item, index) => { %>
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="<%= index < orderItems.length - 1 ? 'margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #f2e8e2;' : '' %>">
+                          <tr>
+                            <% if (item.image_url) { %>
+                              <td valign="top" width="76" style="padding-right:14px;">
+                                <img src="<%= item.image_url %>" alt="<%= item.name || 'Product image' %>" width="76" style="display:block;width:76px;height:76px;border-radius:10px;object-fit:cover;border:1px solid #efe4de;"/>
+                              </td>
+                            <% } %>
+                            <td valign="top">
+                              <p style="color:#2b1716;font-size:15px;font-weight:600;margin:0 0 6px;font-family:'DM Sans',Arial,sans-serif;"><%= item.name || 'Item' %></p>
+                              <% if (item.variant) { %><p style="color:#8b746c;font-size:13px;margin:0 0 4px;font-family:'DM Sans',Arial,sans-serif;"><%= item.variant %></p><% } %>
+                              <p style="color:#8b746c;font-size:13px;margin:0;font-family:'DM Sans',Arial,sans-serif;">Qty: <%= item.quantity ?? 1 %></p>
+                            </td>
+                            <td valign="top" align="right" style="color:#2b1716;font-size:14px;font-weight:600;font-family:'DM Sans',Arial,sans-serif;white-space:nowrap;">
+                              <%= item.subtotal || item.price || item.unit_price || '' %>
+                            </td>
+                          </tr>
+                        </table>
+                      <% }) %>
+                    </td>
+                  </tr>
+                </table>
+              <% } %>
+
+              <% if (totals.length > 0) { %>
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:24px;border:1px solid #efe4de;border-radius:14px;">
+                  <tr>
+                    <td style="padding:20px 22px;background-color:#fffaf7;">
+                      <p style="color:#2b1716;font-size:16px;font-weight:600;margin:0 0 14px;font-family:'DM Sans',Arial,sans-serif;">Payment breakdown</p>
+                      <% totals.forEach(([label, value], index) => { %>
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:<%= index < totals.length - 1 ? '10px' : '0' %>;">
+                          <tr>
+                            <td style="color:<%= label === 'Total' ? '#2b1716' : '#8b746c' %>;font-size:13px;<%= label === 'Total' ? 'font-weight:600;' : '' %>font-family:'DM Sans',Arial,sans-serif;"><%= label %></td>
+                            <td align="right" style="color:#2b1716;font-size:<%= label === 'Total' ? '15px' : '13px' %>;font-weight:600;font-family:'DM Sans',Arial,sans-serif;"><%= value %></td>
+                          </tr>
+                        </table>
+                      <% }) %>
+                    </td>
+                  </tr>
+                </table>
+              <% } %>
+
+              <% if (shipping_address || billing_address) { %>
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:24px;">
+                  <tr>
+                    <% if (shipping_address) { %>
+                      <td valign="top" width="50%" style="padding-right:8px;">
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border:1px solid #efe4de;border-radius:14px;">
+                          <tr>
+                            <td style="padding:18px 20px;">
+                              <p style="color:#2b1716;font-size:15px;font-weight:600;margin:0 0 10px;font-family:'DM Sans',Arial,sans-serif;">Shipping address</p>
+                              <p style="color:#6d5a53;font-size:13px;line-height:1.6;white-space:pre-line;margin:0;font-family:'DM Sans',Arial,sans-serif;"><%= shipping_address %></p>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    <% } %>
+                    <% if (billing_address) { %>
+                      <td valign="top" width="50%" style="padding-left:8px;">
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border:1px solid #efe4de;border-radius:14px;">
+                          <tr>
+                            <td style="padding:18px 20px;">
+                              <p style="color:#2b1716;font-size:15px;font-weight:600;margin:0 0 10px;font-family:'DM Sans',Arial,sans-serif;">Billing address</p>
+                              <p style="color:#6d5a53;font-size:13px;line-height:1.6;white-space:pre-line;margin:0;font-family:'DM Sans',Arial,sans-serif;"><%= billing_address %></p>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    <% } %>
+                  </tr>
+                </table>
+              <% } %>
+
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+                <tr>
+                  <td bgcolor="#8e2a2a" style="background-color:#8e2a2a;border-radius:10px;text-align:center;">
+                    <a href="<%= site_url || '#' %>" style="display:block;padding:14px 28px;color:#fff8f4;text-decoration:none;font-size:15px;font-weight:600;font-family:'DM Sans',Arial,sans-serif;white-space:nowrap;">
+                      Continue shopping &rarr;
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:24px;">
+                <tr>
+                  <td style="border-top:1px solid #f2e8e2;font-size:0;line-height:0;">&nbsp;</td>
+                </tr>
+              </table>
+
+              <p style="color:#6d5a53;font-size:15px;line-height:1.7;margin:0 0 16px;font-family:'DM Sans',Arial,sans-serif;">If you need help with your order, reply to this email or contact us at <a href="mailto:<%= contactEmail %>" style="color:#8e2a2a;text-decoration:none;"><%= contactEmail %></a>.</p>
+              <p style="color:#6d5a53;font-size:15px;line-height:1.7;margin:0;font-family:'DM Sans',Arial,sans-serif;">Warm regards,<br/><strong style="color:#8e2a2a;font-size:16px;"><%= senderName %></strong></p>
+            </td>
+          </tr>
+
+          <tr>
+            <td bgcolor="#fffaf7" align="center" style="background-color:#fffaf7;padding:20px 36px;border-top:1px solid #f2e8e2;">
+              <p style="color:#8b746c;font-size:12px;margin:0;font-family:'DM Sans',Arial,sans-serif;">You're receiving this because you placed an order with <a href="<%= site_url || '#' %>" style="color:#8b746c;text-decoration:underline;"><%= site_url || 'Style &amp; Grace' %></a></p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

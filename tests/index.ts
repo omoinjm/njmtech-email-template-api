@@ -1,3 +1,6 @@
+process.env.NODE_ENV = 'test';
+process.env.SMTP_HOST = '';
+
 import request from 'supertest';
 import { api } from '../api/index';
 
@@ -91,6 +94,51 @@ describe('POST /template', () => {
     expect(res.status).toEqual(404);
     expect(res.body).toHaveProperty('error');
   });
+
+  it('renders the style-and-grace thank_you template with order details', async () => {
+    const res = await request(api)
+      .post('/template')
+      .send({
+        client: 'style-and-grace',
+        template_name: 'thank_you',
+        first_name: 'Jane',
+        last_name: 'Smith',
+        email: 'jane@example.com',
+        order_number: 'SG-1042',
+        order_date: '18 May 2026',
+        payment_status: 'Paid',
+        shipping_method: 'Courier Guy - Standard',
+        estimated_delivery: '21-23 May 2026',
+        subtotal: 'R1,150.00',
+        shipping: 'R99.00',
+        discount: 'R0.00',
+        tax: 'Included',
+        total: 'R1,249.00',
+        shipping_address: '12 Palm Avenue\nSandton\nJohannesburg',
+        billing_address: '12 Palm Avenue\nSandton\nJohannesburg',
+        site_url: 'https://styleandgrace.co.za',
+        order_items: [
+          {
+            name: 'Satin Wrap Dress',
+            variant: 'Color: Burgundy / Size: M',
+            quantity: 1,
+            subtotal: 'R899.00',
+          },
+          {
+            name: 'Classic Heel Sandals',
+            variant: 'Color: Nude / Size: 6',
+            quantity: 1,
+            subtotal: 'R350.00',
+          },
+        ],
+      });
+
+    expect(res.status).toEqual(200);
+    expect(res.text).toContain('Thanks for your order!');
+    expect(res.text).toContain('SG-1042');
+    expect(res.text).toContain('Satin Wrap Dress');
+    expect(res.text).toContain('Classic Heel Sandals');
+    expect(res.text).toContain('R1,249.00');
+    expect(res.text).toContain('https://styleandgrace.co.za');
+  });
 });
-
-
