@@ -58,6 +58,27 @@ describe('GET /preview/:client/:template', () => {
     expect(res.text).toContain('Order confirmed');
     expect(res.text).toContain('Satin Wrap Dress');
   });
+
+  it('renders the bookmark-sync-engine thank_you preview', async () => {
+    const res = await request(api).get('/preview/bookmark-sync-engine/thank_you');
+    expect(res.status).toEqual(200);
+    expect(res.text).toContain('Bookmark Sync Engine');
+    expect(res.text).toContain('Welcome aboard');
+    expect(res.text).toContain('https://bookmarks.njmtech.co.za');
+  });
+
+  it('renders the bookmark-sync-engine account_credentials preview', async () => {
+    const res = await request(api).get('/preview/bookmark-sync-engine/account_credentials');
+    expect(res.status).toEqual(200);
+    expect(res.text).toContain('jane@example.com');
+    expect(res.text).toContain('Tg7$kPz2mQ');
+    expect(res.text).toContain('https://bookmarks.njmtech.co.za');
+  });
+
+  it('returns 404 for a template not supported by bookmark-sync-engine', async () => {
+    const res = await request(api).get('/preview/bookmark-sync-engine/contact_confirmation');
+    expect(res.status).toEqual(404);
+  });
 });
 
 describe('POST /template', () => {
@@ -187,5 +208,32 @@ describe('POST /template', () => {
     expect(res.text).toContain('SG-2048');
     expect(res.text).toContain('Satin Wrap Dress');
     expect(res.text).toContain('R1,249.00');
+  });
+
+  it('renders the bookmark-sync-engine account_credentials template', async () => {
+    const res = await request(api)
+      .post('/template')
+      .send({
+        client: 'bookmark-sync-engine',
+        template_name: 'account_credentials',
+        first_name: 'John',
+        last_name: 'Doe',
+        email: 'john@example.com',
+        password: 'Zr4#qLm9wV',
+        loginUrl: 'https://bookmarks.njmtech.co.za',
+      });
+
+    expect(res.status).toEqual(200);
+    expect(res.text).toContain('Bookmark Sync Engine');
+    expect(res.text).toContain('john@example.com');
+    expect(res.text).toContain('Zr4#qLm9wV');
+    expect(res.text).toContain('https://bookmarks.njmtech.co.za');
+  });
+
+  it('returns 404 when a template is not supported by bookmark-sync-engine', async () => {
+    const res = await request(api)
+      .post('/template')
+      .send({ client: 'bookmark-sync-engine', template_name: 'contact_confirmation', first_name: 'John', last_name: 'Doe' });
+    expect(res.status).toEqual(404);
   });
 });

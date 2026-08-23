@@ -43,7 +43,7 @@ Renders a default template preview with fixture data.
 
 | Field    | Required | Description |
 |----------|----------|-------------|
-| `client` | ❌       | Client namespace. Omit it or use `default` for NJMTech templates. Use `style-and-grace` for the first client set. |
+| `client` | ❌       | Client namespace. Omit it or use `default` for NJMTech templates. Also available: `style-and-grace`, `bookmark-sync-engine`. |
 
 ### `GET /preview/:client/:template`
 Renders a client-specific template preview directly by namespace.
@@ -65,6 +65,8 @@ Renders an EJS template and optionally sends it as an email.
 Default templates are resolved from `api/views/pages/`. Client-specific templates are resolved from `api/views/pages/clients/<client>/`.
 
 For the Style & Grace `thank_you` template, you can also pass order fields such as `order_number`, `order_date`, `payment_status`, `shipping_method`, `estimated_delivery`, `order_items`, `subtotal`, `shipping`, `discount`, `tax`, `total`, `shipping_address`, and `billing_address`.
+
+The `bookmark-sync-engine` client only supports two templates: `thank_you` (a signup welcome email) and `account_credentials` (delivers an auto-generated password — pass `email`, `password`, and `loginUrl`).
 
 **Responses:**
 - `200` – Rendered HTML template

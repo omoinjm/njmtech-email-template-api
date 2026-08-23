@@ -71,9 +71,16 @@ const PREVIEW_FIXTURES: Record<string, Record<string, unknown>> = {
       },
     ],
   },
+  account_credentials: {
+    displayName: 'Jane Smith',
+    email: 'jane@example.com',
+    password: 'Tg7$kPz2mQ',
+    loginUrl: 'https://bookmarks.njmtech.co.za',
+  },
 };
 
 const TEMPLATE_NAMES = Object.keys(PREVIEW_FIXTURES);
+const STANDARD_TEMPLATE_NAMES = ['contact_confirmation', 'contact_notification', 'subscribe_welcome', 'thank_you'];
 
 const TEMPLATE_CLIENTS: Record<
   string,
@@ -88,7 +95,7 @@ const TEMPLATE_CLIENTS: Record<
   [DEFAULT_CLIENT_KEY]: {
     label: 'NJMTech',
     viewRoot: 'pages',
-    templates: TEMPLATE_NAMES,
+    templates: STANDARD_TEMPLATE_NAMES,
     defaultLocals: {
       senderName: process.env.SENDER_NAME || 'NJMTech',
       contactEmail: process.env.CONTACT_EMAIL || '',
@@ -99,7 +106,7 @@ const TEMPLATE_CLIENTS: Record<
   'style-and-grace': {
     label: 'Style & Grace',
     viewRoot: 'pages/clients/style-and-grace',
-    templates: TEMPLATE_NAMES,
+    templates: STANDARD_TEMPLATE_NAMES,
     defaultLocals: {
       senderName: 'Style & Grace',
       contactEmail: process.env.CONTACT_EMAIL || '',
@@ -110,6 +117,20 @@ const TEMPLATE_CLIENTS: Record<
       contact_confirmation: { siteUrl: '#' },
       subscribe_welcome: { siteUrl: '#' },
       thank_you: { siteUrl: '#', orderNumber: 'SG-1042' },
+    },
+  },
+  'bookmark-sync-engine': {
+    label: 'Bookmark Sync Engine',
+    viewRoot: 'pages/clients/bookmark-sync-engine',
+    templates: ['thank_you', 'account_credentials'],
+    defaultLocals: {
+      senderName: 'Bookmark Sync Engine',
+      contactEmail: process.env.CONTACT_EMAIL || '',
+      siteUrl: 'https://bookmarks.njmtech.co.za',
+      fromName: 'Bookmark Sync Engine',
+    },
+    previewOverrides: {
+      thank_you: { siteUrl: 'https://bookmarks.njmtech.co.za' },
     },
   },
 };

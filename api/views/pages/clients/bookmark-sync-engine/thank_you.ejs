@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>Welcome to Bookmark Sync Engine</title>
+  <!--[if mso]>
+  <style type="text/css">body,table,td,a{font-family:Arial,Helvetica,sans-serif!important;}</style>
+  <![endif]-->
+</head>
+<body style="margin:0;padding:0;background-color:#0b0f14;">
+  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#0b0f14;">
+    <tr>
+      <td align="center" style="padding:40px 16px;">
+        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="600" style="max-width:600px;width:100%;border:1px solid #22303a;background-color:#111a21;">
+          <tr>
+            <td bgcolor="#111a21" align="center" style="background-color:#111a21;padding:44px 40px 36px;border-bottom:1px solid #22303a;">
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+                <tr>
+                  <td width="48" height="48" bgcolor="#0d1117" align="center" valign="middle"
+                      style="background-color:#0d1117;border:1px solid #9fef00;font-size:13px;font-weight:600;color:#9fef00;font-family:ui-monospace,'SF Mono','Cascadia Code','Segoe UI Mono','Roboto Mono',Menlo,Consolas,monospace;line-height:48px;text-align:center;letter-spacing:0.02em;">BSE</td>
+                </tr>
+              </table>
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr><td height="18" style="font-size:18px;line-height:18px;">&nbsp;</td></tr>
+              </table>
+              <p style="font-size:11px;font-weight:500;color:#5c6773;margin:0 0 6px;letter-spacing:0.06em;text-transform:uppercase;font-family:ui-monospace,'SF Mono','Cascadia Code','Segoe UI Mono','Roboto Mono',Menlo,Consolas,monospace;">Bookmark Sync Engine</p>
+              <h1 style="font-size:24px;font-weight:600;color:#e6edf3;margin:0;letter-spacing:-0.3px;font-family:ui-monospace,'SF Mono','Cascadia Code','Segoe UI Mono','Roboto Mono',Menlo,Consolas,monospace;"><span style="color:#6fae1f;">&gt; </span>Welcome aboard</h1>
+            </td>
+          </tr>
+          <tr>
+            <td bgcolor="#111a21" style="background-color:#111a21;padding:32px 36px;">
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+                <tr>
+                  <td bgcolor="#0d1117" style="background-color:#0d1117;border:1px solid #9fef00;padding:5px 14px;">
+                    <span style="color:#9fef00;font-size:12px;font-weight:600;font-family:ui-monospace,'SF Mono','Cascadia Code','Segoe UI Mono','Roboto Mono',Menlo,Consolas,monospace;letter-spacing:0.04em;text-transform:uppercase;">&#10003; Sync active</span>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="color:#e6edf3;font-size:16px;font-weight:500;margin:0 0 12px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">Hi <%= displayName.split(' ')[0] %>,</p>
+              <p style="color:#9aa7b0;font-size:15px;line-height:1.7;margin:0 0 16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">Thanks for signing up for Bookmark Sync Engine. Your account is ready and we're now watching for new bookmarks to sync, tag, and index for search.</p>
+              <p style="color:#9aa7b0;font-size:15px;line-height:1.7;margin:0 0 24px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">Here's how to get the most out of it:</p>
+
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:28px;border:1px solid #22303a;">
+                <tr>
+                  <td bgcolor="#0d1117" style="background-color:#0d1117;padding:20px 22px;">
+                    <p style="color:#e6edf3;font-size:14px;line-height:1.8;margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+                      <span style="color:#9fef00;font-family:ui-monospace,'SF Mono','Cascadia Code','Segoe UI Mono','Roboto Mono',Menlo,Consolas,monospace;">01.</span>&nbsp; Install the browser extension if you haven't already<br/>
+                      <span style="color:#9fef00;font-family:ui-monospace,'SF Mono','Cascadia Code','Segoe UI Mono','Roboto Mono',Menlo,Consolas,monospace;">02.</span>&nbsp; Bookmark a page — it syncs and gets auto-tagged automatically<br/>
+                      <span style="color:#9fef00;font-family:ui-monospace,'SF Mono','Cascadia Code','Segoe UI Mono','Roboto Mono',Menlo,Consolas,monospace;">03.</span>&nbsp; Open the Bookmark Library to search and browse everything
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin-bottom:28px;">
+                <tr>
+                  <td bgcolor="#9fef00" style="background-color:#9fef00;text-align:center;">
+                    <a href="<%= locals.siteUrl || '#' %>"
+                       style="display:block;padding:14px 32px;color:#0b0f14;text-decoration:none;font-size:14px;font-weight:600;font-family:ui-monospace,'SF Mono','Cascadia Code','Segoe UI Mono','Roboto Mono',Menlo,Consolas,monospace;letter-spacing:0.02em;text-transform:uppercase;white-space:nowrap;">
+                      Open Bookmark Library
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:24px;">
+                <tr>
+                  <td bgcolor="#0d1117" style="background-color:#0d1117;border:1px solid #22303a;padding:16px 20px;">
+                    <p style="color:#9aa7b0;font-size:14px;margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">Questions? Email us at <a href="mailto:<%= contactEmail %>" style="color:#9fef00;text-decoration:none;"><%= contactEmail %></a></p>
+                  </td>
+                </tr>
+              </table>
+
+              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:24px;">
+                <tr><td style="border-top:1px solid #22303a;font-size:0;line-height:0;">&nbsp;</td></tr>
+              </table>
+
+              <p style="color:#9aa7b0;font-size:15px;line-height:1.7;margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">— <%= senderName %></p>
+            </td>
+          </tr>
+          <tr>
+            <td bgcolor="#111a21" align="center" style="background-color:#111a21;padding:20px 36px;border-top:1px solid #22303a;">
+              <p style="color:#5c6773;font-size:12px;margin:0;font-family:ui-monospace,'SF Mono','Cascadia Code','Segoe UI Mono','Roboto Mono',Menlo,Consolas,monospace;">You're receiving this because you signed up at <a href="<%= locals.siteUrl || '#' %>" style="color:#5c6773;text-decoration:underline;"><%= locals.siteUrl || 'Bookmark Sync Engine' %></a></p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
