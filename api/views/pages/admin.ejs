@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Template Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, Arial, sans-serif; background: #f8fafc; color: #0f172a; }
+    header { background: #1e1b4b; color: white; padding: 18px 28px; display: flex; justify-content: space-between; align-items: center; }
+    header h1 { margin: 0; font-size: 20px; }
+    header p { margin: 4px 0 0; color: #c7d2fe; font-size: 13px; }
+    main { max-width: 1200px; margin: 0 auto; padding: 24px; display: grid; gap: 24px; grid-template-columns: 320px 1fr; }
+    .panel { background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04); }
+    .panel h2 { margin: 0 0 16px; font-size: 16px; }
+    label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #334155; }
+    input, select, textarea, button { font: inherit; }
+    input, select, textarea { width: 100%; border: 1px solid #cbd5e1; border-radius: 10px; padding: 10px 12px; background: white; }
+    textarea { min-height: 360px; resize: vertical; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; line-height: 1.5; }
+    .stack { display: grid; gap: 14px; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    button { border: 0; border-radius: 10px; padding: 10px 14px; font-weight: 600; cursor: pointer; }
+    .primary { background: #4f46e5; color: white; }
+    .secondary { background: #e2e8f0; color: #0f172a; }
+    .danger { background: #fee2e2; color: #b91c1c; }
+    .client-list, .template-list { display: grid; gap: 8px; }
+    .client-item, .template-item { border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; cursor: pointer; background: #fff; }
+    .client-item.active, .template-item.active { border-color: #4f46e5; background: #eef2ff; }
+    .muted { color: #64748b; font-size: 12px; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+    .badge-uploaded { background: #dcfce7; color: #166534; }
+    .badge-builtin { background: #e2e8f0; color: #475569; }
+    .status { min-height: 20px; font-size: 13px; margin-top: 8px; }
+    .status.error { color: #dc2626; }
+    .status.success { color: #059669; }
+    @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Template Admin</h1>
+      <p>Upload and manage EJS templates per client without redeploying code.</p>
+    </div>
+    <a href="/" style="color:#c7d2fe;text-decoration:none;font-size:14px;">Back to API</a>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Clients & Templates</h2>
+      <div id="clientList" class="client-list"></div>
+      <div style="height:16px"></div>
+      <div id="templateList" class="template-list"></div>
+    </section>
+
+    <section class="panel">
+      <h2 id="editorTitle">Upload Template</h2>
+      <div class="stack">
+        <div>
+          <label for="clientSelect">Client</label>
+          <select id="clientSelect"></select>
+        </div>
+        <div>
+          <label for="templateName">Template name</label>
+          <input id="templateName" placeholder="welcome_email" pattern="[a-z0-9_-]+" />
+          <p class="muted">Lowercase letters, numbers, hyphens, underscores only.</p>
+        </div>
+        <div>
+          <label for="fileInput">Upload .ejs file</label>
+          <input id="fileInput" type="file" accept=".ejs,.html,.txt" />
+        </div>
+        <div>
+          <label for="templateContent">Template content (EJS)</label>
+          <textarea id="templateContent" placeholder="<html>...</html>"></textarea>
+        </div>
+        <div class="actions">
+          <button class="primary" id="saveBtn" type="button">Save template</button>
+          <button class="secondary" id="previewBtn" type="button">Preview</button>
+          <button class="danger" id="deleteBtn" type="button">Delete uploaded copy</button>
+        </div>
+        <div id="status" class="status"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const adminKey = <%= JSON.stringify(adminKey) %>;
+    let clients = [];
+    let selectedClient = null;
+    let selectedTemplate = null;
+
+    function headers() {
+      return {
+        'Content-Type': 'application/json',
+        'X-Admin-Key': adminKey,
+      };
+    }
+
+    function setStatus(message, type = '') {
+      const el = document.getElementById('status');
+      el.textContent = message;
+      el.className = 'status ' + type;
+    }
+
+    async function api(path, options = {}) {
+      const res = await fetch(path, {
+        ...options,
+        headers: { ...headers(), ...(options.headers || {}) },
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || 'Request failed');
+      return data;
+    }
+
+    function renderClients() {
+      const list = document.getElementById('clientList');
+      list.innerHTML = clients.map((client) => `
+        <div class="client-item ${selectedClient === client.key ? 'active' : ''}" data-client="${client.key}">
+          <strong>${client.label}</strong>
+          <div class="muted">${client.key} · ${client.templates.length} templates</div>
+        </div>
+      `).join('');
+
+      list.querySelectorAll('.client-item').forEach((item) => {
+        item.addEventListener('click', () => {
+          selectedClient = item.dataset.client;
+          selectedTemplate = null;
+          renderClients();
+          renderTemplates();
+          document.getElementById('clientSelect').value = selectedClient;
+          setStatus('');
+        });
+      });
+
+      const select = document.getElementById('clientSelect');
+      select.innerHTML = clients.map((client) => `<option value="${client.key}">${client.label}</option>`).join('');
+      if (selectedClient) select.value = selectedClient;
+    }
+
+    function renderTemplates() {
+      const list = document.getElementById('templateList');
+      const client = clients.find((entry) => entry.key === selectedClient);
+      if (!client) {
+        list.innerHTML = '<p class="muted">Select a client.</p>';
+        return;
+      }
+
+      list.innerHTML = client.templates.map((template) => `
+        <div class="template-item ${selectedTemplate === template.name ? 'active' : ''}" data-template="${template.name}" data-source="${template.source}">
+          <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;">
+            <strong>${template.label}</strong>
+            <span class="badge ${template.source === 'uploaded' ? 'badge-uploaded' : 'badge-builtin'}">${template.source}</span>
+          </div>
+          <div class="muted">${template.name}</div>
+        </div>
+      `).join('');
+
+      list.querySelectorAll('.template-item').forEach((item) => {
+        item.addEventListener('click', async () => {
+          selectedTemplate = item.dataset.template;
+          renderTemplates();
+          document.getElementById('templateName').value = selectedTemplate;
+          document.getElementById('editorTitle').textContent = `Edit ${selectedTemplate}`;
+
+          if (item.dataset.source === 'uploaded') {
+            try {
+              const data = await api(`/admin/api/templates/${selectedClient}/${selectedTemplate}`);
+              document.getElementById('templateContent').value = data.content;
+              setStatus('Loaded uploaded template.', 'success');
+            } catch (err) {
+              setStatus(err.message, 'error');
+            }
+          } else {
+            document.getElementById('templateContent').value = '';
+            setStatus('Built-in template. Saving will create an uploaded override.', '');
+          }
+        });
+      });
+    }
+
+    async function loadClients() {
+      const data = await api('/admin/api/clients');
+      clients = data.clients;
+      selectedClient = clients[0]?.key || null;
+      renderClients();
+      renderTemplates();
+    }
+
+    document.getElementById('clientSelect').addEventListener('change', (event) => {
+      selectedClient = event.target.value;
+      selectedTemplate = null;
+      renderClients();
+      renderTemplates();
+    });
+
+    document.getElementById('fileInput').addEventListener('change', async (event) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const text = await file.text();
+      document.getElementById('templateContent').value = text;
+      if (!document.getElementById('templateName').value) {
+        document.getElementById('templateName').value = file.name.replace(/\.(ejs|html|txt)$/i, '').toLowerCase().replace(/[^a-z0-9_-]+/g, '_');
+      }
+      setStatus(`Loaded ${file.name}.`, 'success');
+    });
+
+    document.getElementById('saveBtn').addEventListener('click', async () => {
+      try {
+        const client = document.getElementById('clientSelect').value;
+        const template_name = document.getElementById('templateName').value.trim();
+        const content = document.getElementById('templateContent').value;
+        await api(`/admin/api/templates/${client}/${template_name}`, {
+          method: 'PUT',
+          body: JSON.stringify({ content }),
+        });
+        selectedClient = client;
+        selectedTemplate = template_name;
+        await loadClients();
+        setStatus('Template saved.', 'success');
+      } catch (err) {
+        setStatus(err.message, 'error');
+      }
+    });
+
+    document.getElementById('previewBtn').addEventListener('click', () => {
+      const client = document.getElementById('clientSelect').value;
+      const template = document.getElementById('templateName').value.trim();
+      if (!client || !template) return;
+      window.open(`/preview/${client}/${template}`, '_blank');
+    });
+
+    document.getElementById('deleteBtn').addEventListener('click', async () => {
+      try {
+        const client = document.getElementById('clientSelect').value;
+        const template = document.getElementById('templateName').value.trim();
+        await api(`/admin/api/templates/${client}/${template}`, { method: 'DELETE' });
+        selectedTemplate = null;
+        document.getElementById('templateContent').value = '';
+        await loadClients();
+        setStatus('Uploaded template deleted. Built-in version remains if one exists.', 'success');
+      } catch (err) {
+        setStatus(err.message, 'error');
+      }
+    });
+
+    loadClients().catch((err) => setStatus(err.message, 'error'));
+  </script>
+</body>
+</html>

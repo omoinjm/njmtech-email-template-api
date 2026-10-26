@@ -1,0 +1,17 @@
+{
+  "key": "style-and-grace",
+  "label": "Style & Grace",
+  "viewRoot": "pages/clients/style-and-grace",
+  "templates": ["contact_confirmation", "contact_notification", "subscribe_welcome", "thank_you"],
+  "defaultLocals": {
+    "senderName": "Style & Grace",
+    "contactEmail": "{{CONTACT_EMAIL:}}",
+    "siteUrl": "#",
+    "fromName": "Style & Grace"
+  },
+  "previewOverrides": {
+    "contact_confirmation": { "siteUrl": "#" },
+    "subscribe_welcome": { "siteUrl": "#" },
+    "thank_you": { "siteUrl": "#", "orderNumber": "SG-1042" }
+  }
+}

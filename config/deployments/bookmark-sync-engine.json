@@ -1,0 +1,10 @@
+{
+  "tier": "dedicated",
+  "clientKey": "bookmark-sync-engine",
+  "emailMode": "send",
+  "rateLimit": {
+    "windowMs": 86400000,
+    "max": 10000
+  },
+  "previewEnabled": false
+}

@@ -6,7 +6,11 @@ A REST API for rendering and sending HTML email templates, built with **Node.js 
 
 - Render EJS email templates by name
 - Optionally send rendered templates via SMTP (Nodemailer)
-- Rate limiting on the template endpoint (10 requests / 15 min)
+- Shared and dedicated deployment tiers from the same codebase
+- API key authentication for `/template`
+- Distributed rate limiting via Upstash Redis (with in-memory fallback)
+- Config-driven client registry under `config/clients/`
+- Admin UI at `/admin` to upload templates per client without redeploying
 - Centralized error handling
 - Serverless-ready (Vercel)
 
@@ -23,7 +27,7 @@ cp .env.example .env   # fill in your values
 npm run dev            # starts dev server with nodemon
 ```
 
-See [`docs/set-up.md`](./docs/set-up.md) for full setup instructions.
+See [`docs/set-up.md`](./docs/set-up.md) for full setup instructions, deployment tiers, and auth configuration.
 
 ## API Endpoints
 

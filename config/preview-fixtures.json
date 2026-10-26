@@ -1,0 +1,55 @@
+{
+  "contact_notification": {
+    "displayName": "Jane Smith",
+    "email": "jane@example.com",
+    "subject": "Hello from the website",
+    "message": "Hi there! I've been following your work and would love to collaborate on a future project. Your portfolio really stands out — impressive stuff!"
+  },
+  "contact_confirmation": {
+    "displayName": "Jane Smith",
+    "message": "Hi there! I've been following your work and would love to collaborate on a future project. Your portfolio really stands out — impressive stuff!",
+    "siteUrl": "https://njmtech.co.za"
+  },
+  "subscribe_welcome": {
+    "firstName": "Jane",
+    "siteUrl": "https://njmtech.co.za",
+    "unsubscribeUrl": "#"
+  },
+  "thank_you": {
+    "displayName": "Jane Smith",
+    "contactEmail": "{{CONTACT_EMAIL:hello@njmtech.co.za}}",
+    "siteUrl": "https://njmtech.co.za",
+    "orderNumber": "SG-1042",
+    "orderDate": "18 May 2026",
+    "paymentStatus": "Paid",
+    "shippingMethod": "Courier Guy - Standard",
+    "estimatedDelivery": "21-23 May 2026",
+    "subtotal": "R1,150.00",
+    "shipping": "R99.00",
+    "discount": "R0.00",
+    "tax": "Included",
+    "total": "R1,249.00",
+    "shippingAddress": "12 Palm Avenue\nSandton\nJohannesburg",
+    "billingAddress": "12 Palm Avenue\nSandton\nJohannesburg",
+    "orderItems": [
+      {
+        "name": "Satin Wrap Dress",
+        "variant": "Color: Burgundy / Size: M",
+        "quantity": 1,
+        "subtotal": "R899.00"
+      },
+      {
+        "name": "Classic Heel Sandals",
+        "variant": "Color: Nude / Size: 6",
+        "quantity": 1,
+        "subtotal": "R350.00"
+      }
+    ]
+  },
+  "account_credentials": {
+    "displayName": "Jane Smith",
+    "email": "jane@example.com",
+    "password": "Example-Passw0rd!",
+    "loginUrl": "https://bookmarks.njmtech.co.za"
+  }
+}

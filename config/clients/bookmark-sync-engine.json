@@ -1,0 +1,19 @@
+{
+  "key": "bookmark-sync-engine",
+  "label": "Bookmark Sync Engine",
+  "viewRoot": "pages/clients/bookmark-sync-engine",
+  "templates": ["thank_you", "account_credentials"],
+  "defaultLocals": {
+    "senderName": "Bookmark Sync Engine",
+    "contactEmail": "{{CONTACT_EMAIL:}}",
+    "siteUrl": "https://bookmarks.njmtech.co.za",
+    "fromName": "Bookmark Sync Engine"
+  },
+  "previewOverrides": {
+    "thank_you": { "siteUrl": "https://bookmarks.njmtech.co.za" }
+  },
+  "rateLimit": {
+    "windowMs": 900000,
+    "max": 1000
+  }
+}

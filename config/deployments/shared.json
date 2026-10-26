@@ -1,0 +1,9 @@
+{
+  "tier": "shared",
+  "allowedClients": ["default", "style-and-grace", "bookmark-sync-engine"],
+  "emailMode": "auto",
+  "rateLimit": {
+    "windowMs": 900000,
+    "max": 100
+  }
+}

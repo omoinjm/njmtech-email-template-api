@@ -1,0 +1,12 @@
+{
+  "key": "default",
+  "label": "NJMTech",
+  "viewRoot": "pages",
+  "templates": ["contact_confirmation", "contact_notification", "subscribe_welcome", "thank_you"],
+  "defaultLocals": {
+    "senderName": "{{SENDER_NAME:NJMTech}}",
+    "contactEmail": "{{CONTACT_EMAIL:}}",
+    "siteUrl": "https://njmtech.co.za",
+    "fromName": "{{FROM_NAME:NJMTech}}"
+  }
+}

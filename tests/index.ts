@@ -71,7 +71,7 @@ describe('GET /preview/:client/:template', () => {
     const res = await request(api).get('/preview/bookmark-sync-engine/account_credentials');
     expect(res.status).toEqual(200);
     expect(res.text).toContain('jane@example.com');
-    expect(res.text).toContain('Tg7$kPz2mQ');
+    expect(res.text).toContain('Example-Passw0rd!');
     expect(res.text).toContain('https://bookmarks.njmtech.co.za');
   });
 
